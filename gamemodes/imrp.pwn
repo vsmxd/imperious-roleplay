@@ -21,11 +21,12 @@
 //------------------------------------------------------------------------------
 // SERVER CONFIGURATION
 //------------------------------------------------------------------------------
-#define         SERVER_NAME					"Imperious Roleplay"
-#define         SERVER_RCON					"makemewet"
+#define         SERVER_NAME					"Carson Town Roleplay"
+#define         SERVER_RCON					"tastycock"
 #define         SERVER_PASSWORD				"0"
-#define         SERVER_VERSION				"IM:RP v3.12a"
-#define         SERVER_MAP					"Las Venturas"
+#define         SERVER_LANGUAGE				"English"
+#define         SERVER_VERSION				"RP | Roleplay"
+#define         SERVER_MAP					"Fort Carson"
 #define         SERVER_SITE					"NONE"
 #define         SERVER_TEAMSPEAK			"NONE"
 #define 		MYSQL_HOST  				"127.0.0.1"
@@ -35,7 +36,6 @@
 //------------------------------------------------------------------------------
 // PREPROCESSOR DIRECTIVES
 //------------------------------------------------------------------------------
-
 #include <a_samp>
 #include <a_mysql>
 #include <a_zones>
@@ -46,8 +46,8 @@
 #include <zcmd>
 #include <mSelection>
 
-#undef MAX_PLAYERS
-#define	MAX_PLAYERS (100)
+#undef 			MAX_PLAYERS
+#define			MAX_PLAYERS (50)
 
 #define COLOR_WHITE 		0xFFFFFFAA
 #define COLOR_GREY			0xB4B5B7FF
@@ -87,7 +87,6 @@
 #define TAX_PERCENTAGE              (20)
 
 // Constants, DO NOT TOUCH BELOW UNLESS NECESSARY
-
 #define THREAD_ACCOUNT_LOOKUP       (1)
 #define THREAD_ACCOUNT_REGISTER     (2)
 #define THREAD_REGISTER_SPAWN       (3)
@@ -563,7 +562,7 @@ new VehicleNames[212][] = {
 };
 
 #define INDEX_MINEOBJECT                  (0)
-// SEMI-DYNAMICS
+// SEMI DYNAMIC STUFF
 #define LOCATION_IMPOUND 			2225.1890,2456.8569,-7.7086
 #define LOCATION_ARREST				2281.1650,2430.0449,3.0172
 #define LOCATION_DMV 				823.130, 3.29, 1004.179
@@ -913,6 +912,7 @@ main()
 	SendRconCommand("mapname "SERVER_MAP);
 	SendRconCommand("weburl "SERVER_SITE);
 	SendRconCommand("password "SERVER_PASSWORD);
+	SendRconCommand("language "SERVER_LANGUAGE);
 	printf(""SERVER_NAME" ("SERVER_VERSION"), has been loaded successfully.");
 }
 
