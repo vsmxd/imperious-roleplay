@@ -25,7 +25,7 @@
 #define         SERVER_RCON					"tastycock"
 #define         SERVER_PASSWORD				"0"
 #define         SERVER_LANGUAGE				"English"
-#define         SERVER_VERSION				"RP | Roleplay"
+#define         SERVER_VERSION				"CTRP | RP/Roleplay/English"
 #define         SERVER_MAP					"Fort Carson | Bone County | Las Venturas"
 #define         SERVER_SITE					"NONE"
 #define         SERVER_TEAMSPEAK			"NONE"
