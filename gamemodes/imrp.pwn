@@ -26,7 +26,7 @@
 #define         SERVER_PASSWORD				"0"
 #define         SERVER_LANGUAGE				"English"
 #define         SERVER_VERSION				"RP | Roleplay"
-#define         SERVER_MAP					"Fort Carson"
+#define         SERVER_MAP					"Fort Carson | Bone County | Las Venturas"
 #define         SERVER_SITE					"NONE"
 #define         SERVER_TEAMSPEAK			"NONE"
 #define 		MYSQL_HOST  				"127.0.0.1"
