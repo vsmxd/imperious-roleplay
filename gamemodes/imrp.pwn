@@ -11975,7 +11975,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	else if(GetPVarInt(playerid, "RouteId") != 0)
 	{
 	    new Float:tmpFloats[3];
-		GetVehiclePos(GetPVarInt(playerid, "PizzaBike"), tmpFloats[0], tmpFloats[1], tmpFloats[2]);
+		GetVehiclePos(GetPVarInt(playerid, "RouteTruck"), tmpFloats[0], tmpFloats[1], tmpFloats[2]);
 		if(IsPlayerInRangeOfPoint(playerid, 25.0, tmpFloats[0], tmpFloats[1], tmpFloats[2]))
 		{
 			if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Please get out of your truck and walk into the checkpoint to deliver the goods.");
