@@ -396,6 +396,7 @@ enum eBusinessData
 	bOpen,
 	bBuyPrice,
 	bMapIcon,
+	bPickup,
 	Text3D:bTextLabel
 }
 new BusinessInfo[MAX_BUSINESSES+1][eBusinessData];
@@ -2635,6 +2636,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		            {
 		            	format(string, sizeof(string), "DELETE FROM `businesses` WHERE `Id` = '%d'", b);
 						mysql_tqueryof(string, THREAD_NO_RESULT, playerid, mConnectionHandle);
+						DestroyDynamicPickup(BusinessInfo[b][bPickup]);
 						DestroyDynamic3DTextLabel(BusinessInfo[b][bTextLabel]);
 		                for (new eBusinessData:i; i < eBusinessData; i++)
 		                {
@@ -17901,6 +17903,8 @@ stock RecreateBusinessText(b)
 		} else {
 			format(string, sizeof(string), "{FFFFFF}(ID: %d)\n[{FF0000}Closed{FFFFFF}]\n%s\nName: %s{FFFFFF}", b, string, BusinessInfo[b][bName]);
 		}
+		if(IsValidDynamicPickup(BusinessInfo[b][bPickup]))
+			DestroyDynamicPickup(BusinessInfo[b][bPickup]);
 		if(IsValidDynamic3DTextLabel(BusinessInfo[b][bTextLabel]))
 			DestroyDynamic3DTextLabel(BusinessInfo[b][bTextLabel]);
 		if(IsValidDynamicMapIcon(BusinessInfo[b][bMapIcon]))
@@ -17908,6 +17912,7 @@ stock RecreateBusinessText(b)
 		if(GetBusinessMapIcon(b) != 0)
 			BusinessInfo[b][bMapIcon] = CreateDynamicMapIcon(BusinessInfo[b][bPosition][0], BusinessInfo[b][bPosition][1], BusinessInfo[b][bPosition][2], GetBusinessMapIcon(b), 0, 0, 0);
 		BusinessInfo[b][bTextLabel] = CreateDynamic3DTextLabel(string, COLOR_WHITE, BusinessInfo[b][bPosition][0], BusinessInfo[b][bPosition][1], BusinessInfo[b][bPosition][2], 20.0);
+		BusinessInfo[b][bPickup] = CreateDynamicPickup(1272, 1, BusinessInfo[b][bPosition][0], BusinessInfo[b][bPosition][1], BusinessInfo[b][bPosition][2], 0, -1, -1, 40.0);
 	}
 }
 
