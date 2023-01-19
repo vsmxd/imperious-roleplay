@@ -26,9 +26,8 @@
 #define         SERVER_PASSWORD				"0"
 #define         SERVER_LANGUAGE				"English"
 #define         SERVER_VERSION				"CTRP | RP/Roleplay/English"
-#define         SERVER_MAP					"Fort Carson | Bone County | Las Venturas"
+#define         SERVER_MAP					"Fort Carson/Bone County/Las Venturas"
 #define         SERVER_SITE					"NONE"
-#define         SERVER_TEAMSPEAK			"NONE"
 #define 		MYSQL_HOST  				"127.0.0.1"
 #define 		MYSQL_USERNAME  			"anothervishn"
 #define 		MYSQL_PASSWORD  			"xtJwlOLD"
@@ -842,8 +841,7 @@ new
 	Text:Login4,
 	Text:Login5,
 	Text:Login6,
-	Text:Login7,
-	Text:Login8
+	Text:Login7
 ;
 
 // Timers
@@ -1104,7 +1102,7 @@ public OnGameModeInit()
 	TextDrawFont(Login3, 3);
 	TextDrawSetProportional(Login3, 1);
 
-	Login4 = TextDrawCreate(8.333291, 371.259368, "Created by: Vishnu");
+	Login4 = TextDrawCreate(8.333291, 371.259368, "Created by: b1eed");
 	TextDrawLetterSize(Login4, 0.449999, 1.600000);
 	TextDrawAlignment(Login4, 1);
 	TextDrawColor(Login4, -1);
@@ -1143,16 +1141,6 @@ public OnGameModeInit()
 	TextDrawBackgroundColor(Login7, 51);
 	TextDrawFont(Login7, 3);
 	TextDrawSetProportional(Login7, 1);
-
-	Login8 = TextDrawCreate(242.333312, 393.244415, SERVER_TEAMSPEAK);
-	TextDrawLetterSize(Login8, 0.477665, 2.305185);
-	TextDrawAlignment(Login8, 1);
-	TextDrawColor(Login8, -1);
-	TextDrawSetShadow(Login8, 0);
-	TextDrawSetOutline(Login8, -2);
-	TextDrawBackgroundColor(Login8, 51);
-	TextDrawFont(Login8, 2);
-	TextDrawSetProportional(Login8, 1);
 
 	for (new v=0; v < MAX_VEHICLES; v++)
 	    if(IsValidVehicle(v)) SetVehicleToRespawn(v);
@@ -1193,7 +1181,6 @@ public OnGameModeExit()
     TextDrawDestroy(Login5);
     TextDrawDestroy(Login6);
     TextDrawDestroy(Login7);
-    TextDrawDestroy(Login8);
 
     Seifader_OnExit();
     MySQL_Exit();
@@ -1373,7 +1360,6 @@ stock ShowIntroTextDraws(playerid)
 	TextDrawShowForPlayer(playerid, Login5);
 	TextDrawShowForPlayer(playerid, Login6);
 	TextDrawShowForPlayer(playerid, Login7);
-	TextDrawShowForPlayer(playerid, Login8);
 }
 
 stock HideIntroTextDraws(playerid)
@@ -1386,7 +1372,6 @@ stock HideIntroTextDraws(playerid)
 	TextDrawHideForPlayer(playerid, Login5);
 	TextDrawHideForPlayer(playerid, Login6);
 	TextDrawHideForPlayer(playerid, Login7);
-	TextDrawHideForPlayer(playerid, Login8);
 }
 
 public OnQueryFinish(query[], resultid, extraid)
