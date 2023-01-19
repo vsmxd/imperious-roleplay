@@ -1,11 +1,5 @@
 ﻿gamemodes/imrp.amx
 server_log.txt
 logs/
-<<<<<<< HEAD
-scriptfiles/logs/*.log
-scriptfiles/numbers_used.txt
-=======
 scriptfiles/logs/
 scriptfiles/numbers_used.txt
-pawno/settings.ini
->>>>>>> 272ea3e19973fbddf6836913a8e4fb45377068b5
