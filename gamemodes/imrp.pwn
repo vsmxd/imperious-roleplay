@@ -4468,10 +4468,10 @@ CMD:denyname(playerid, params[])
 
 stock SetDefaultRegisterStatistics(playerid)
 {
-  	PlayerInfo[playerid][pPositionX] = 1743.08;
-	PlayerInfo[playerid][pPositionY] = -1860.55;
-	PlayerInfo[playerid][pPositionZ] = 13.58;
-	PlayerInfo[playerid][pFacingAngle] = 0;
+  	PlayerInfo[playerid][pPositionX] = 1692.3413;
+	PlayerInfo[playerid][pPositionY] = 1451.1672;
+	PlayerInfo[playerid][pPositionZ] = 10.7649;
+	PlayerInfo[playerid][pFacingAngle] = 267.3066;
 
 	// Customize default player statistics below:
 	PlayerInfo[playerid][pHealth] = 100.0; PlayerInfo[playerid][pArmour] = 0.0;
