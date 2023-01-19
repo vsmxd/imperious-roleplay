@@ -569,8 +569,8 @@ new VehicleNames[212][] = {
 #define LOCATION_TRUCKERJOB 		2183.902,-2252.951,14.770
 #define LOCATION_TRUCKDELIVERY 		2188.268,-2264.258,13.479
 #define LOCATION_MECHANICJOB 		1965.9840,2172.8284,10.8203
-#define LOCATION_PIZZAJOB 			2078.4805,2224.0613,11.0234
-#define LOCATION_PIZZADELIVERY 		2074.8066,2225.5959,10.8203
+#define LOCATION_PIZZAJOB 			377.187,-115.422,1001.492
+#define LOCATION_PIZZADELIVERY 		2110.976,-1773.879,13.392
 #define LOCATION_MINERJOB   	    2199.689,-1974.648,13.557
 #define LOCATION_MINESPOT	        -187.4391,2129.9346,-12.6628
 #define LOCATION_MINEPROCESSING		-212.2387,2121.3508,-13.6078
@@ -11436,7 +11436,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	 		DeletePVar(playerid, "PizzaBike");
 			DeletePVar(playerid, "PizzaID");
 		 	DeletePVar(playerid, "PizzaPayment");
-    		SendClientMessageEx(playerid, COLOR_YELLOW, "PIZZA:{FFFFF}Your previous mission was cancelled due to you entering another vehicle.");
+    		SendClientMessageEx(playerid, COLOR_YELLOW, "PIZZA:{FFFFFF}Your previous mission was cancelled due to you entering another vehicle.");
 	    }
 	    else if(IsATruckerVehicle(vehicleid))
 	    {
@@ -11666,7 +11666,7 @@ CMD:startpizza(playerid, params[])
 				SetPVarInt(playerid, "PizzaBike", vehicleid);
 
 	            SendClientMessageEx(playerid, COLOR_ORANGE, "PIZZA:{FFFFFF} Deliver the pizza to the destination, please check the red marker.");
-	            SendClientMessageEx(playerid, COLOR_YELLOW, "SALARY:{FFFFF} You will receive your pay upon completion of the mission.");
+	            SendClientMessageEx(playerid, COLOR_YELLOW, "SALARY:{FFFFFF} You will receive your pay upon completion of the mission.");
             }
             else
             {
@@ -11939,7 +11939,7 @@ public OnPlayerEnterCheckpoint(playerid)
 		GetVehiclePos(GetPVarInt(playerid, "PizzaBike"), tmpFloats[0], tmpFloats[1], tmpFloats[2]);
 		if(IsPlayerInRangeOfPoint(playerid, 25.0, tmpFloats[0], tmpFloats[1], tmpFloats[2]))
 		{
-		    if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Please get out of your truck and walk into the checkpoint to deliver the goods.");
+		    if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Get off your bike and walk into the checkpoint to deliver the pizza.");
 			SendClientMessageEx(playerid, COLOR_ORANGE, "PIZZA:{FFFFFF} You have delivered the pizza, now return the bike back to the pizza store to receive your pay.");
 			SetPVarInt(playerid, "PizzaPayment", 1);
 			DisablePlayerCheckpoint(playerid);
@@ -11975,7 +11975,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	else if(GetPVarInt(playerid, "RouteId") != 0)
 	{
 	    new Float:tmpFloats[3];
-		GetVehiclePos(GetPVarInt(playerid, "PizzaBike"), tmpFloats[0], tmpFloats[1], tmpFloats[2]);
+		GetVehiclePos(GetPVarInt(playerid, "RouteTruck"), tmpFloats[0], tmpFloats[1], tmpFloats[2]);
 		if(IsPlayerInRangeOfPoint(playerid, 25.0, tmpFloats[0], tmpFloats[1], tmpFloats[2]))
 		{
 			if(IsPlayerInAnyVehicle(playerid)) return SendClientMessageEx(playerid, COLOR_LIGHTBLUE, "Please get out of your truck and walk into the checkpoint to deliver the goods.");
