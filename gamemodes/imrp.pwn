@@ -19,7 +19,7 @@
 	- Corpse
 */
 //------------------------------------------------------------------------------
-// Modules
+// SERVER CONFIGURATION
 //------------------------------------------------------------------------------
 #include        "modules/config.pwn"
 //------------------------------------------------------------------------------
@@ -450,6 +450,7 @@ enum eGateData
 	Text3D:gTextDisplay,
 	gSpeed,
 	gState,
+	gFaction,
 	Float:gPosition[3],
 	Float:gRotation[3],
 	Float:gDestPosition[3],
@@ -903,7 +904,6 @@ main()
 	SendRconCommand("password "SERVER_PASSWORD);
 	SendRconCommand("language "SERVER_LANGUAGE);
 	printf(""SERVER_NAME" ("SERVER_VERSION"), has been loaded successfully.");
-	printf("[TESTING] MAX_PLAYERS = %i.", MAX_PLAYERS);
 }
 
 public OnGameModeInit()
@@ -3539,6 +3539,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		   			format(string, sizeof(string), "{FFFFFF}You are currently editing the Speed of Gate %d (1-10).\nCurrent Value: %d", GateEdit[playerid], GateInfo[GateEdit[playerid]][gSpeed]);
 					ShowPlayerDialogEx(playerid, DIALOG_GATE_SUBMIT, DIALOG_STYLE_INPUT, "{FFFFFF}Gate Editor - Speed", string, "Submit", "Cancel");
 				}
+				
+				case 7:
+				{
+				    GateEditOption[playerid] = 8;
+		   			format(string, sizeof(string), "The speed can be no longer than %d and smaller than 0.", MAX_FACTIONS);
+	       			SendClientMessageEx(playerid, COLOR_WHITE, string);
+		   			format(string, sizeof(string), "{FFFFFF}You are currently editing the Faction Restriction of Gate %d (1-%d).\nCurrent Value: %d", GateEdit[playerid], MAX_FACTIONS, GateInfo[GateEdit[playerid]][gFaction]);
+					ShowPlayerDialogEx(playerid, DIALOG_GATE_SUBMIT, DIALOG_STYLE_INPUT, "{FFFFFF}Gate Editor - Faction Restriction", string, "Submit", "Cancel");
+				}
 			}
 		}
 
@@ -3593,6 +3602,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    format(string, sizeof(string), "You have changed gate id %d's speed to %d.", g, GateInfo[g][gSpeed]);
 				    SendClientMessageEx(playerid, COLOR_WHITE, string);
 			        format(string, sizeof(string), "UPDATE `gates` SET `Speed` = '%d' WHERE `Id` = '%d'", GateInfo[g][gSpeed], g);
+					mysql_tqueryof(string, THREAD_NO_RESULT, playerid, mConnectionHandle);
+
+				}
+
+				case 8:
+				{
+				    if(strval(inputtext) < 0 || strval(inputtext) > MAX_FACTIONS)
+				    {
+		   				format(string, sizeof(string), "{FFFFFF}The faction id can be no longer than %d and smaller than 0", MAX_FACTIONS);
+				        SendClientMessageEx(playerid, COLOR_WHITE, string);
+		   				format(string, sizeof(string), "{FFFFFF}You are currently editing the Faction Restriction of Gate %d (1-10).\nCurrent Value: %d", GateEdit[playerid], GateInfo[GateEdit[playerid]][gFaction]);
+						ShowPlayerDialogEx(playerid, DIALOG_GATE_SUBMIT, DIALOG_STYLE_INPUT, "{FFFFFF}Gate Editor - Faction Restriction", string, "Submit", "Cancel");
+						return 1;
+				    }
+				    GateInfo[g][gFaction] = strval(inputtext);
+				    format(string, sizeof(string), "You have changed gate id %d's faction restriction to %d.", g, GateInfo[g][gFaction]);
+				    SendClientMessageEx(playerid, COLOR_WHITE, string);
+			        format(string, sizeof(string), "UPDATE `gates` SET `Faction` = '%d' WHERE `Id` = '%d'", GateInfo[g][gFaction], g);
 					mysql_tqueryof(string, THREAD_NO_RESULT, playerid, mConnectionHandle);
 
 				}
@@ -5220,12 +5247,12 @@ CMD:vnear(playerid, params[])
 
 CMD:gate(playerid, params[])
 {
-	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_WHITE, "Usage: /gate [password]");
+	//if(isnull(params)) return SendClientMessageEx(playerid, COLOR_WHITE, "Usage: /gate [password]");
 	for (new i=1; i < MAX_GATES; i++)
 	{
 	    if(IsPlayerInRangeOfPoint(playerid, 8.0, GateInfo[i][gPosition][0], GateInfo[i][gPosition][1], GateInfo[i][gPosition][2]) || IsPlayerInRangeOfPoint(playerid, 8.0, GateInfo[i][gDestPosition][0], GateInfo[i][gDestPosition][1], GateInfo[i][gDestPosition][2]))
 	    {
-	        if(!strcmp(params, GateInfo[i][gPassword], true))
+	        if( IsAdmin(playerid, ADMIN_LEVEL_TWO) || (GateInfo[i][gFaction] == PlayerInfo[playerid][pFaction] && (strlen(GateInfo[i][gPassword]) == 0 || !strcmp(params, GateInfo[i][gPassword], true))) )
 	        {
 	            if(IsDynamicObjectMoving(GateInfo[i][gObjectHandle]))
 	        		StopDynamicObject(GateInfo[i][gObjectHandle]);
@@ -5320,11 +5347,11 @@ CMD:addgate(playerid, params[])
 		format(GateInfo[g][gPassword], 12, ""); GateInfo[g][gModel] = 971; GateInfo[g][gState] = 0; GateInfo[g][gSpeed] = 1;
 		GetPlayerPos(playerid, GateInfo[g][gPosition][0], GateInfo[g][gPosition][1], GateInfo[g][gPosition][2]);
 		GateInfo[g][gDestPosition][0] = 0; GateInfo[g][gDestPosition][1] = 0; GateInfo[g][gDestPosition][2] = 0;
-		GateInfo[g][gRotation][0] = 0; GateInfo[g][gRotation][1] = 0; GateInfo[g][gRotation][2] = 0;
+		GateInfo[g][gRotation][0] = 0; GateInfo[g][gRotation][1] = 0; GateInfo[g][gRotation][2] = 0; GateInfo[g][gFaction] = 0;
 		GateInfo[g][gDestRotation][0] = 0; GateInfo[g][gDestRotation][1] = 0; GateInfo[g][gDestRotation][2] = 0;
 		GateInfo[g][gObjectHandle] = CreateDynamicObject(GateInfo[g][gModel], GateInfo[g][gPosition][0], GateInfo[g][gPosition][1], GateInfo[g][gPosition][2], GateInfo[g][gRotation][0], GateInfo[g][gRotation][1], GateInfo[g][gRotation][2]);
 
-	    format(szQuery, sizeof(szQuery), "INSERT INTO `gates` VALUES ('%d','0','0','0','0','0','0','0','0','0','0','0','0','%d','%s','0');", g, GateInfo[g][gModel], GateInfo[g][gPassword]);
+	    format(szQuery, sizeof(szQuery), "INSERT INTO `gates` VALUES ('%d','0','0','0','0','0','0','0','0','0','0','0','0','%d','%s','0','0');", g, GateInfo[g][gModel], GateInfo[g][gPassword]);
 		mysql_tqueryof(szQuery, THREAD_LOG_RESULT, playerid, mConnectionHandle);
 		format(szQuery, sizeof(szQuery), "You have successfully added a gate! Type /editgate %d to complete gate creation.", g);
 		SendClientMessageEx(playerid, COLOR_WHITE, szQuery);
@@ -5350,7 +5377,8 @@ CMD:editgate(playerid, params[])
 		Bring Gate Here\n\
 		Edit Gate Destination\n\
 		Delete Gate\n\
-		Edit Speed (%d)", GateInfo[i][gPassword], GateInfo[i][gModel], GateInfo[i][gSpeed]);
+		Edit Speed (%d)\n\
+		Edit Faction (%d)", GateInfo[i][gPassword], GateInfo[i][gModel], GateInfo[i][gSpeed], GateInfo[i][gFaction]);
 		ShowPlayerDialogEx(playerid, DIALOG_GATE_EDIT, DIALOG_STYLE_LIST, "{FFFFFF}Gate Editor", string, "Select", "Cancel");
 
         GateEdit[playerid] = i;
@@ -14100,6 +14128,7 @@ public MySQL_Gates_Load()
         cache_get_value_name(i, "DestRotationX", szValue); GateInfo[id][gDestRotation][0] = floatstr(szValue);
         cache_get_value_name(i, "DestRotationY", szValue); GateInfo[id][gDestRotation][1] = floatstr(szValue);
         cache_get_value_name(i, "DestRotationZ", szValue); GateInfo[id][gDestRotation][2] = floatstr(szValue);
+        cache_get_value_name(i, "Faction", szValue); GateInfo[id][gFaction] = strval(szValue);
         GateInfo[id][gObjectHandle] = CreateDynamicObject(GateInfo[id][gModel], GateInfo[id][gPosition][0], GateInfo[id][gPosition][1], GateInfo[id][gPosition][2], GateInfo[id][gRotation][0], GateInfo[id][gRotation][1], GateInfo[id][gRotation][2]);
 		RecreateGateText(id);
 	}
