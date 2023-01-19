@@ -830,9 +830,7 @@ new
 	Text:Login1,
 	Text:Login2,
 	Text:Login3,
-	Text:Login4,
 	Text:Login5,
-	Text:Login6,
 	Text:Login7
 ;
 
@@ -1094,16 +1092,6 @@ public OnGameModeInit()
 	TextDrawFont(Login3, 3);
 	TextDrawSetProportional(Login3, 1);
 
-	Login4 = TextDrawCreate(8.333291, 371.259368, "Created by: b1eed");
-	TextDrawLetterSize(Login4, 0.449999, 1.600000);
-	TextDrawAlignment(Login4, 1);
-	TextDrawColor(Login4, -1);
-	TextDrawSetShadow(Login4, 0);
-	TextDrawSetOutline(Login4, -2);
-	TextDrawBackgroundColor(Login4, 51);
-	TextDrawFont(Login4, 2);
-	TextDrawSetProportional(Login4, 1);
-
 	Login5 = TextDrawCreate(279.000091, 9.125836, SERVER_SITE);
 	TextDrawLetterSize(Login5, 0.449999, 1.600000);
 	TextDrawAlignment(Login5, 1);
@@ -1113,16 +1101,6 @@ public OnGameModeInit()
 	TextDrawBackgroundColor(Login5, 51);
 	TextDrawFont(Login5, 2);
 	TextDrawSetProportional(Login5, 1);
-
-	Login6 = TextDrawCreate(10.666801, 389.925872, "Thanks to: Aleks & Stevolas");
-	TextDrawLetterSize(Login6, 0.267666, 1.546074);
-	TextDrawAlignment(Login6, 1);
-	TextDrawColor(Login6, -1);
-	TextDrawSetShadow(Login6, 0);
-	TextDrawSetOutline(Login6, 1);
-	TextDrawBackgroundColor(Login6, 51);
-	TextDrawFont(Login6, 3);
-	TextDrawSetProportional(Login6, 1);
 
 	Login7 = TextDrawCreate(245.666717, 370.014862, "Players Online: 0");
 	TextDrawLetterSize(Login7, 0.449999, 1.600000);
@@ -1169,9 +1147,7 @@ public OnGameModeExit()
 	TextDrawDestroy(Login1);
 	TextDrawDestroy(Login2);
 	TextDrawDestroy(Login3);
-    TextDrawDestroy(Login4);
     TextDrawDestroy(Login5);
-    TextDrawDestroy(Login6);
     TextDrawDestroy(Login7);
 
     Seifader_OnExit();
@@ -1272,8 +1248,8 @@ public OnPlayerConnected(playerid)
     for(new i=0; i < 20; i++) SendClientMessageEx(playerid, COLOR_WHITE, "");
 
 	ShowIntroTextDraws(playerid);
-	SetPlayerCameraPos(playerid, 1758.4740,1447.7784,21.8575);
-	SetPlayerCameraLookAt(playerid, 1692.3413, 1451.1672, 10.7649);
+	SetPlayerCameraPos(playerid, 2338.336,-1498.674,44.522);
+	SetPlayerCameraLookAt(playerid, 2304.748,-1543.103,22.038);
 
  	SetPlayerTime(playerid, WorldTime[0], WorldTime[1]);
 
@@ -1348,9 +1324,7 @@ stock ShowIntroTextDraws(playerid)
 	TextDrawShowForPlayer(playerid, Login1);
 	TextDrawShowForPlayer(playerid, Login2);
 	TextDrawShowForPlayer(playerid, Login3);
-	TextDrawShowForPlayer(playerid, Login4);
 	TextDrawShowForPlayer(playerid, Login5);
-	TextDrawShowForPlayer(playerid, Login6);
 	TextDrawShowForPlayer(playerid, Login7);
 }
 
@@ -1360,9 +1334,7 @@ stock HideIntroTextDraws(playerid)
 	TextDrawHideForPlayer(playerid, Login1);
 	TextDrawHideForPlayer(playerid, Login2);
 	TextDrawHideForPlayer(playerid, Login3);
-	TextDrawHideForPlayer(playerid, Login4);
 	TextDrawHideForPlayer(playerid, Login5);
-	TextDrawHideForPlayer(playerid, Login6);
 	TextDrawHideForPlayer(playerid, Login7);
 }
 
@@ -13460,7 +13432,7 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
 	new Float:armour, Float:health;
 	GetPlayerArmour(playerid, armour); GetPlayerHealth(playerid, health);
-	if(IsPlayerRestricted(playerid) || GetPVarType(playerid, "AdminDuty")) return 1;
+	if(GetPVarInt(playerid, "gPlayerLogged") == 0 || IsPlayerRestricted(playerid) || GetPVarType(playerid, "AdminDuty")) return 1;
     RemovePlayerColorFade(playerid);
 	FadePlayerScreen(playerid, COLOR_RED, 36);
 
