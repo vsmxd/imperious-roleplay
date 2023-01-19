@@ -566,8 +566,8 @@ new VehicleNames[212][] = {
 #define LOCATION_FISH 				2293.7705,523.2487,1.7944
 #define LOCATION_SELLFISH 			2294.4900,544.9136,1.7944
 #define LOCATION_TAXIJOB 			2047.689,-1915.942,13.546
-#define LOCATION_TRUCKERJOB 		1629.7201,972.1518,10.8203
-#define LOCATION_TRUCKDELIVERY 		1632.9192,962.0126,10.5507
+#define LOCATION_TRUCKERJOB 		2183.902,-2252.951,14.770
+#define LOCATION_TRUCKDELIVERY 		2188.268,-2264.258,13.479
 #define LOCATION_MECHANICJOB 		1965.9840,2172.8284,10.8203
 #define LOCATION_PIZZAJOB 			2078.4805,2224.0613,11.0234
 #define LOCATION_PIZZADELIVERY 		2074.8066,2225.5959,10.8203
@@ -3640,8 +3640,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			    case 5:
 			    {
-					GetPlayerPos(playerid, PlayerInfo[playerid][pPositionX], PlayerInfo[playerid][pPositionY], PlayerInfo[playerid][pPositionZ]);
-					GetPlayerFacingAngle(playerid, PlayerInfo[playerid][pFacingAngle]);
+					if (IsPlayerInAnyVehicle(playerid))
+					{
+						new playerVehicle;
+          				playerVehicle = GetPlayerVehicleID(playerid);
+					    GetVehiclePos(playerVehicle,PlayerInfo[playerid][pPositionX], PlayerInfo[playerid][pPositionY], PlayerInfo[playerid][pPositionZ]);
+					    GetVehicleZAngle(playerVehicle,PlayerInfo[playerid][pFacingAngle]);
+					}
+					else
+					{
+						GetPlayerPos(playerid, PlayerInfo[playerid][pPositionX], PlayerInfo[playerid][pPositionY], PlayerInfo[playerid][pPositionZ]);
+						GetPlayerFacingAngle(playerid, PlayerInfo[playerid][pFacingAngle]);
+					}
 				    DynamicVehicleInfo[VehicleEdit[playerid]][dvPosition][0] = PlayerInfo[playerid][pPositionX];
 				    DynamicVehicleInfo[VehicleEdit[playerid]][dvPosition][1] = PlayerInfo[playerid][pPositionY];
 				    DynamicVehicleInfo[VehicleEdit[playerid]][dvPosition][2] = PlayerInfo[playerid][pPositionZ];
@@ -4468,10 +4478,10 @@ CMD:denyname(playerid, params[])
 
 stock SetDefaultRegisterStatistics(playerid)
 {
-  	PlayerInfo[playerid][pPositionX] = 1692.3413;
-	PlayerInfo[playerid][pPositionY] = 1451.1672;
-	PlayerInfo[playerid][pPositionZ] = 10.7649;
-	PlayerInfo[playerid][pFacingAngle] = 267.3066;
+  	PlayerInfo[playerid][pPositionX] = 1743.08;
+	PlayerInfo[playerid][pPositionY] = -1860.55;
+	PlayerInfo[playerid][pPositionZ] = 13.58;
+	PlayerInfo[playerid][pFacingAngle] = 0;
 
 	// Customize default player statistics below:
 	PlayerInfo[playerid][pHealth] = 100.0; PlayerInfo[playerid][pArmour] = 0.0;
