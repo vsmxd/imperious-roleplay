@@ -1,5 +1,5 @@
 ﻿gamemodes/imrp.amx
 server_log.txt
 logs/
-scriptfiles/logs/
+scriptfiles/logs/*.log
 scriptfiles/numbers_used.txt
