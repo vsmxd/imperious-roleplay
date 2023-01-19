@@ -1,5 +1,3 @@
-﻿pawno/settings.ini
-logs/warnings.log
-logs/plugins/mysql.log
-gamemodes/imrp.amx
-**/*.log
+﻿gamemodes/imrp.amx
+server_log.txt
+logs/
