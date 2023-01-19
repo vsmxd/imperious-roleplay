@@ -7,7 +7,7 @@
 #define         SERVER_LANGUAGE				"English"
 #define         SERVER_VERSION				"LSRP | Roleplay/English/RP"
 #define         SERVER_MAP					"Los Santos"
-#define         SERVER_SITE					"https://discord.gg/PZQCqUZjnC"
+#define         SERVER_SITE					"discord.gg/PZQCqUZjnC"
 
 // Comment out the below line when pushing to live server
 #define 		IS_LOCAL_HOST               true
