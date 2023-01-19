@@ -19,7 +19,7 @@
 	- Corpse
 */
 //------------------------------------------------------------------------------
-// SERVER CONFIGURATION
+// Modules
 //------------------------------------------------------------------------------
 #include        "modules/config.pwn"
 //------------------------------------------------------------------------------
@@ -903,6 +903,7 @@ main()
 	SendRconCommand("password "SERVER_PASSWORD);
 	SendRconCommand("language "SERVER_LANGUAGE);
 	printf(""SERVER_NAME" ("SERVER_VERSION"), has been loaded successfully.");
+	printf("[TESTING] MAX_PLAYERS = %i.", MAX_PLAYERS);
 }
 
 public OnGameModeInit()
