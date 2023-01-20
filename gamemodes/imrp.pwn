@@ -13606,7 +13606,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		return 1;
 	}
 
-	if(newkeys & KEY_CROUCH)
+	if(newkeys & KEY_NO)
 	{
 		if(IsPlayerInAnyVehicle(playerid))
 		{
