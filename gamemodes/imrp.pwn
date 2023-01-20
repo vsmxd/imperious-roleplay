@@ -213,7 +213,7 @@
 //(MySQL:handle, const query[], const callback[] = "", const format[] = "", {Float,_}:...)
 #define mysql_tqueryof(%1,%2,%3,%4) \
 	mysql_tquery(%4, %1, "OnQueryFinish", "sii", %1, %2, %3)
-	
+
 forward OnPlayerChangeWeapon(playerid, weapon);
 forward OnQueryFinish(query[], resultid, extraid);
 forward ConsumeGlobalFuel();
@@ -558,7 +558,7 @@ new VehicleNames[212][] = {
 #define LOCATION_ARREST				1529.286,-1678.326,5.89
 #define LOCATION_DMV 				-2032.331,-117.191,1035.171
 #define LOCATION_DELIVERPT 			2013.878,-1417.351,16.992
-#define LOCATION_HOSPITAL 			2037.124,-14411.500,17.164
+#define LOCATION_HOSPITAL    		2036,-1413.224, 17.00
 
 
 #define LOCATION_MAILBOX 			2104.947,-1736.459,13.560
@@ -591,13 +591,13 @@ new Float:DrugWarehouses[3][3] =
 new Float:JailPositions[6][3] =
 {
 	// IC
-	{177.065, 1830.980, -46.343},
-	{183.727, 1831.926, -46.343},
-	{190.518, 1831.440, -46.343},
+	{227.309,109.348,999.015},
+	{223.503,110.130,999.015},
+	{219.508,110.099,999.0156},
 	// OOC
-	{190.518, 1852.847, -46.343},
-	{183.843, 1852.842, -46.343},
-	{177.282, 1852.355, -46.343}
+	{215.110,109.056,999.015},
+	{215.110,109.056,999.015},
+	{215.110,109.056,999.015}
 };
 
 
@@ -912,9 +912,9 @@ public OnGameModeInit()
         new File:nf = fopen("numbers_used.txt", io_write);
         fclose(nf);
     }
-    
+
     buyable = LoadModelSelectionMenu("buyable.txt");
-    
+
 	MySQL_Initialize();
 	MySQL_Load_Waypoints();
 	MySQL_Load_Businesses();
@@ -924,14 +924,14 @@ public OnGameModeInit()
     MySQL_Load_Vehicles();
     MySQL_Load_Gates();
 	PlantMarijuanaPlant();
-	
+
 	UsePlayerPedAnims();
 	EnableStuntBonusForAll(0);
 	SetNameTagDrawDistance(15.0);
     LimitPlayerMarkerRadius(100.0);
     ShowPlayerMarkers(PLAYER_MARKERS_MODE_OFF);
 	DisableInteriorEnterExits();
-	
+
 	gettime(WorldTime[0], WorldTime[1], WorldTime[2]);
 	SetWorldTime(WorldTime[0]);
 	SetTimer("Heartbeat", 1000, true);
@@ -944,13 +944,13 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("Department of Motor Vehicles\nType /buylicense to buy a license\nType /dmvmenu to manage your vehicles and their legal status", COLOR_YELLOW, LOCATION_DMV, 8.0);
 	CreateDynamic3DTextLabel("Sell Fish\nType /sellfish to sell all the fish in your inventory", COLOR_YELLOW, LOCATION_SELLFISH, 15.0);
 	CreateDynamic3DTextLabel("Weapon Factory\nType /getgun to produce a gun", COLOR_YELLOW, LOCATION_WEAPONFACTORY, 8.0);
-	
+
 	CreateDynamic3DTextLabel("Vehicle Dealership\nType /buyvehicles display the available cars", COLOR_YELLOW, LOCATION_DEALERSHIP, 15.0);
 	CreateDynamicPickup(1239, 1, LOCATION_DEALERSHIP);
-	
+
 	CreateDynamic3DTextLabel("Fishing Spot\nType /fish to catch fish at this spot", COLOR_YELLOW, LOCATION_FISH, 15.0);
 	CreateDynamicPickup(1239, 1, LOCATION_FISH);
-	
+
 	CreateDynamic3DTextLabel("Pizza Boy Job\nType /getjob to become a Pizza Boy", COLOR_YELLOW, LOCATION_PIZZAJOB, 8.0);
 	CreateDynamicPickup(1239, 1, LOCATION_PIZZAJOB);
 
@@ -977,13 +977,13 @@ public OnGameModeInit()
 
 	CreateDynamic3DTextLabel("Taxi Driver Job\nType /getjob to become a Taxi Driver", COLOR_YELLOW, LOCATION_TAXIJOB, 8.0);
 	CreateDynamicPickup(1239, 1, LOCATION_TAXIJOB);
-	
+
 	CreateDynamic3DTextLabel("Impound Warehouse\nType /impound to process a vehicle", COLOR_LIGHTBLUE, LOCATION_IMPOUND, 8.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID);
 	CreateDynamicPickup(1239, 1, LOCATION_IMPOUND);
 
 	CreateDynamic3DTextLabel("Arrest Point\nType /arrest to arrest detained suspects", COLOR_YELLOW, LOCATION_ARREST, 8.0);
 	CreateDynamicPickup(1247, 1, LOCATION_ARREST);
-	
+
 	CreateDynamic3DTextLabel("Delivery Point\nType /deliverpt to deliver your patient", COLOR_YELLOW, LOCATION_DELIVERPT, 40.0);
 	CreateDynamicPickup(1239, 1, LOCATION_DELIVERPT);
 
@@ -1036,7 +1036,7 @@ public OnGameModeInit()
 	TextDrawColor(LoadingObjectTextDraw, -1);
 	TextDrawSetOutline(LoadingObjectTextDraw, 1);
 	TextDrawSetProportional(LoadingObjectTextDraw, 1);
-	
+
 	LoadingObjectBox = TextDrawCreate(174.000000, 181.000000, "Box");
 	TextDrawBackgroundColor(LoadingObjectBox, 0);
 	TextDrawFont(LoadingObjectBox, 1);
@@ -1175,7 +1175,7 @@ public OnPlayerConnect(playerid)
     {
     	KickEx(playerid);
     	return print("An NPC tried to connect to server. It was kicked.");
-    }	
+    }
 	ResetPlayerWeapons(playerid);
 	SetPVarInt(playerid, "SafeMode", 1);
     TogglePlayerSpectating(playerid, true);
@@ -2937,7 +2937,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if(FactionEdit[playerid] < 1 || FactionEdit[playerid] > MAX_FACTIONS) return 0;
 		    else if(FactionEditOption[playerid] < 0) return 0;
 		    else if(!response) return 0;
-		    
+
 		    new string[128], f = FactionEdit[playerid];
 		    switch(FactionEditOption[playerid])
 		    {
@@ -3510,7 +3510,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		   			format(string, sizeof(string), "{FFFFFF}You are currently editing the Speed of Gate %d (1-10).\nCurrent Value: %d", GateEdit[playerid], GateInfo[GateEdit[playerid]][gSpeed]);
 					ShowPlayerDialogEx(playerid, DIALOG_GATE_SUBMIT, DIALOG_STYLE_INPUT, "{FFFFFF}Gate Editor - Speed", string, "Submit", "Cancel");
 				}
-				
+
 				case 7:
 				{
 				    GateEditOption[playerid] = 8;
@@ -3804,7 +3804,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    }
 			}
 	    }
-	    
+
 
 	    case DIALOG_LOCKER_CLOTHING:
 	    {
@@ -4379,10 +4379,10 @@ public MySQL_Change_Name(playerid, newname[], adminid)
 	{
 		format(string, sizeof(string), "[Namechange]: %s has changed %s's name to %s.", GetPlayerNameEx(adminid), PlayerInfo[playerid][pUsername], newname);
 		Log("logs/nc.log", string);
-		
+
 		format(string, sizeof(string), "{FF6347}AdmWarning:{FFFF00} %s has changed %s's name to %s.", GetPlayerNameEx(adminid), PlayerInfo[playerid][pUsername], newname);
 		AdminAlert(string, ALERT_ADMINS);
-		
+
 		LogEx(playerid, LOG_TYPE_NAMECHANGE, adminid, newname);
 
 		if(!GetPVarInt(playerid, "FreeNamechange") && PlayerInfo[playerid][pHitman] == 0) PlayerInfo[playerid][pMoney] -= 2000;
@@ -4785,7 +4785,7 @@ CMD:aduty(playerid, params[])
 			GetPlayerHealth(playerid, PlayerInfo[playerid][pHealth]);
 			GetPlayerArmour(playerid, PlayerInfo[playerid][pArmour]);
 		    SetPlayerName(playerid, PlayerInfo[playerid][pAdminName]);
-		    
+
 		    SetPlayerHealth(playerid, 0x7FB00000);
 		    SetPlayerArmour(playerid, 0x7FB00000);
 		}
@@ -5195,7 +5195,7 @@ CMD:editvehicle(playerid, params[])
 		Vehicle Color 2 (%d)\n\
 	    Place Vehicle Here\n\
 		Delete Vehicle", GetVehicleName(DynamicVehicleInfo[dv][dvHandleId]), DynamicVehicleInfo[dv][dvType], DynamicVehicleInfo[dv][dvFaction], DynamicVehicleInfo[dv][dvColor][0], DynamicVehicleInfo[dv][dvColor][1]);
-		
+
 
 		ShowPlayerDialogEx(playerid, DIALOG_VEHICLE_ADMIN, DIALOG_STYLE_LIST, "{FFFFFF}Vehicle Editor", string, "Edit", "Cancel");
 		format(string, sizeof(string), "You are now editing vehicle %d, all changes will be saved automatically.", dv);
@@ -5999,7 +5999,7 @@ CMD:car(playerid, params[])
     if(!IsPlayerInAnyVehicle(playerid) || GetPlayerVehicleSeat(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You are not inside a vehicle.");
 	//if((WhoRentsVehicle(vehicleid) == INVALID_PLAYER_ID && IsARentableVehicle(vehicleid))) return SendClientMessageEx(playerid, COLOR_GREY, "You don't rent this vehicle.");
 	//if(IsAPizzaBike(vehicleid) || IsADmvCar(vehicleid) || IsATruckerVehicle(vehicleid)) return 1;
-	
+
 
 	if(!strcmp(params, "engine"))
 	{
@@ -7141,7 +7141,7 @@ public MySQL_Offline_Ban(name[], reason[], days, adminid)
 			VALUES ('%s','%s','%d','%s','0')", szIpAddress, name, unbanstamp, reason);
 		}
 		mysql_tqueryof(szString, THREAD_LOG_RESULT, INVALID_PLAYER_ID, mConnectionHandle);
-		
+
 		if(days == -1)
 		{
 			format(szString, sizeof(szString), "You have successfully banned %s (IP: %s) permanently, reason: %s", name, szIpAddress, reason);
@@ -7306,7 +7306,7 @@ CMD:jail(playerid, params[])
 	if(IsAdmin(playerid, ADMIN_LEVEL_ONE))
     {
 	    new targetid, minutes, reason[64], string[128];
-		if(sscanf(params, "uis[64]", targetid, minutes, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /jail [playerid] [miutes] [reason]");
+		if(sscanf(params, "uis[64]", targetid, minutes, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /jail [playerid] [minutes] [reason]");
 		else if(!IsPlayerConnectedEx(targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		else if(PlayerInfo[targetid][pAdminLevel] > PlayerInfo[playerid][pAdminLevel]) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot jail an administrator higher than your rank.");
 		else if(targetid == playerid && !IsAdmin(playerid, ADMIN_LEVEL_TWO)) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot use this command on yourself.");
@@ -7314,7 +7314,7 @@ CMD:jail(playerid, params[])
 
 		format(string, sizeof(string), "AdmCmd: %s was jailed by %s, reason: %s", GetPlayerNameEx(targetid), GetPlayerNameEx(playerid), reason);
 		AdminAlert(string, ALERT_GLOBAL);
-		format(string, sizeof(string), "You were jailed by %s for %d minutes, reason: %s.", GetPlayerNameEx(targetid), minutes, reason);
+		format(string, sizeof(string), "You were jailed by %s for %d minutes, reason: %s", GetPlayerNameEx(targetid), minutes, reason);
 		SendClientMessageEx(targetid, COLOR_LIGHTBLUE, string);
 
 		format(reason, sizeof(reason), "%s (%d minutes)", reason, minutes);
@@ -7324,8 +7324,8 @@ CMD:jail(playerid, params[])
 		PlayerInfo[targetid][pOocJail] = 1;
 		new jailPos = random(3) + 3;
 		SetPlayerPosEx(targetid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
-		SetPlayerFacingAngle(targetid, 180.0);
-		SetPlayerInteriorEx(targetid, 1);
+		SetPlayerFacingAngle(targetid, 0.0);
+		SetPlayerInteriorEx(targetid, 10);
 		SetPlayerVirtualWorldEx(targetid, 777);
 		SetPlayerSkin(targetid, 50);
 
@@ -7343,8 +7343,9 @@ CMD:jail(playerid, params[])
    	}
    	else
    	{
-       	return SendClientMessageEx(playerid, COLOR_GREY, "You authorized to use this command.");
+       	SendClientMessageEx(playerid, COLOR_GREY, "You need to be an admin to use this command.");
 	}
+	return 1;
 }
 
 
@@ -7377,13 +7378,13 @@ CMD:release(playerid, params[])
 		if(sscanf(params, "us[64]", targetid, reason)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /release [playerid] [reason]");
 		else if(!IsPlayerConnectedEx(targetid)) return SendClientMessageEx(playerid, COLOR_GREY, "Invalid player specified.");
 		else if(PlayerInfo[targetid][pJailTime] < 1) return SendClientMessageEx(playerid, COLOR_GREY, "The player specified is not in jail.");
-		
+
 		format(string, sizeof(string), "AdmCmd: %s was released from jail by %s, reason: %s", GetPlayerNameEx(targetid), GetPlayerNameEx(playerid), reason);
 		AdminAlert(string, ALERT_GLOBAL);
 
 		format(reason, sizeof(reason), "%s (release)", reason);
 		LogEx(targetid, LOG_TYPE_JAIL, playerid, reason);
-		
+
 		PlayerTextDrawHide(targetid, JailTimerTD[targetid]);
 		PlayerInfo[targetid][pJailTime] = 0;
 		PlayerInfo[targetid][pOocJail] = 0;
@@ -7394,7 +7395,7 @@ CMD:release(playerid, params[])
 		ClearAnimations(targetid);
 		SetPlayerSkin(targetid, PlayerInfo[targetid][pSkin]);
    	}
-   	else SendClientMessageEx(playerid, COLOR_GREY, "You authorized to use this command.");
+   	else SendClientMessageEx(playerid, COLOR_GREY, "You need to be an admin to use this command.");
 	return 1;
 }
 
@@ -7786,7 +7787,7 @@ CMD:goto(playerid, params[])
 		    SafeTeleport(playerid, LOCATION_PIZZAJOB);
        	else if(!strcmp(params,"smuggler",true))
 		    SafeTeleport(playerid, LOCATION_SMUGGLERJOB);
-		    
+
 		else return SendClientMessageEx(playerid, COLOR_GREY, "You have specified an invalid teleport params.");
 		format(string, sizeof(string), "AdmCmd: %s has teleported to %s.", GetPlayerNameEx(playerid), params);
 		AdminAlert(string, ALERT_ADMINS);
@@ -7839,7 +7840,7 @@ CMD:sendto(playerid, params[])
 		    SafeTeleport(targetid, LOCATION_PIZZAJOB);
        	else if(!strcmp(string,"smuggler",true))
 		    SafeTeleport(targetid, LOCATION_SMUGGLERJOB);
-		    
+
 		else return SendClientMessageEx(playerid, COLOR_GREY, "You have specified an invalid teleport params.");
 		SendClientMessageEx(targetid, COLOR_WHITE, "You have been teleported by an administrator.");
 		format(string, sizeof(string), "AdmCmd: %s has teleported %s to %s.", GetPlayerNameEx(playerid), GetPlayerNameEx(targetid), params);
@@ -9962,7 +9963,7 @@ CMD:deliverpt(playerid, params[])
 	    if(IsNearDeliveryPoint(playerid))
 	    {
 			SetPlayerPosEx(targetid, LOCATION_HOSPITAL);
-			SetPlayerFacingAngle(targetid, 0.0);
+			SetPlayerFacingAngle(targetid, 133.0);
 		}
 		TogglePlayerControllable(targetid, true);
 		ClearAnimations(targetid, 1);
@@ -10029,8 +10030,8 @@ stock GivePlayerDeath(playerid)
 		new jailPos = random(3) + (PlayerInfo[playerid][pOocJail] == 1 ? 3 : 0);
 		SetPlayerHealthEx(playerid, 100);
 		SetPlayerPosEx(playerid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
-		SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 180 : 0);
-		SetPlayerInteriorEx(playerid, 1);
+		SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 0);
+		SetPlayerInteriorEx(playerid, 10);
 		SetPlayerVirtualWorldEx(playerid, 777);
 
 		PlayerTextDrawShow(playerid, JailTimerTD[playerid]);
@@ -10096,10 +10097,10 @@ stock SendToHospital(playerid)
 	SendClientMessageEx(playerid, COLOR_WHITE, "You gave up hope and fell unconscious, you were immediately sent to the hospital.");
 	SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Please wait 15 seconds to complete the recovery process and get out of the hospital.");
 	SetPlayerHealthEx(playerid, 100);
-	SetPlayerPosEx(playerid, -1500.0, 2550.0, 30.0);
-	SetPlayerCameraPos(playerid, 1561.2405,1801.9637,37.6936);
+	SetPlayerPosEx(playerid, 2036, -1413.224, 12.00);
+	SetPlayerCameraPos(playerid, 1989.10,-1460.64,36.47);
 	SetPlayerCameraLookAt(playerid, LOCATION_HOSPITAL);
-	SetPlayerFacingAngle(playerid, 270.0);
+	SetPlayerFacingAngle(playerid, 133.0);
 	SetPlayerInteriorEx(playerid, 0);
 	SetPlayerVirtualWorldEx(playerid, 0);
 	TogglePlayerControllable(playerid, false);
@@ -10290,7 +10291,7 @@ CMD:arrest(playerid, params[])
 		new jailPos = random(3);
 		SetPlayerPosEx(targetid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
 		SetPlayerFacingAngle(playerid, 0);
-		SetPlayerInteriorEx(targetid, 1);
+		SetPlayerInteriorEx(targetid, 10);
 		SetPlayerVirtualWorldEx(targetid, 777);
 
 		PlayerTextDrawShow(targetid, JailTimerTD[targetid]);
@@ -10837,7 +10838,7 @@ public OnPlayerDisconnect(playerid, reason)
 			cmd_aduty(playerid, "");
 			DeletePVar(playerid, "AdminDuty");
 		}
-	    
+
 	    if(GetPVarInt(playerid, "SpeakingPlayer") > 0) DeleteReport(GetPVarInt(playerid, "SpeakingPlayer") - 1);
 
 		if(IsPlayerInAnyVehicle(playerid)) OnPlayerExitVehicle(playerid, GetPlayerVehicleID(playerid));
@@ -10851,7 +10852,7 @@ public OnPlayerDisconnect(playerid, reason)
 	    	DestroyDynamicObject(WeedPlant[playerid]);
 	    	WeedPlant[playerid] = 0;
 		}
-		
+
 		if(GetPVarType(playerid, "SafeMode") == 1) DeletePVar(playerid, "SafeMode");
 
 		if(PlayerInfo[playerid][pJob] == 6) KillDrugRoute(playerid);
@@ -10927,8 +10928,8 @@ public OnPlayerSpawn(playerid)
 			new jailPos = random(3) + (PlayerInfo[playerid][pOocJail] == 1 ? 3 : 0);
 			SetPlayerHealthEx(playerid, 100);
 			SetPlayerPosEx(playerid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
-			SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 180 : 0);
-			SetPlayerInteriorEx(playerid, 1);
+			SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 0);
+			SetPlayerInteriorEx(playerid, 10);
 			SetPlayerVirtualWorldEx(playerid, 777);
 
 			PlayerTextDrawShow(playerid, JailTimerTD[playerid]);
@@ -11053,7 +11054,7 @@ public HospitalTimer(playerid)
  	SetPlayerHealthEx(playerid, 100);
  	SetPlayerArmourEx(playerid, 0);
 	SetPlayerPosEx(playerid, LOCATION_HOSPITAL);
-	SetPlayerFacingAngle(playerid, 0.0);
+	SetPlayerFacingAngle(playerid, 133.0);
 	SetCameraBehindPlayer(playerid);
 	SendClientMessageEx(playerid, COLOR_LIGHTRED, "HOSPITAL: Your medical bill comes to $500, have a nice day.");
 	GivePlayerCash(playerid, -500);
@@ -11074,7 +11075,7 @@ public OnVehicleSpawn(vehicleid)
 	    }
 		else SetVehicleHealth(vehicleid, PlayerVehicleInfo[vowner][GetVehicleOwnedSlot(vehicleid)][pvHealth]);
 	}
-	
+
 	switch (GetVehicleModel(vehicleid))
 	{
 	    case 425: { SetVehicleHealth(vehicleid, 5000); } // hunter
@@ -11086,7 +11087,7 @@ public OnVehicleSpawn(vehicleid)
 	    case 520: { SetVehicleHealth(vehicleid, 4000); } // hydra
 	    case 601: { SetVehicleHealth(vehicleid, 7000); } // splashy
 	}
-	
+
 	VehicleInfo[vehicleid][vEngine] = 0;
 	VehicleInfo[vehicleid][vLights] = 0;
 	VehicleInfo[vehicleid][vTotalled] = 0;
@@ -13447,13 +13448,15 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 		}
 		else if(bodypart == 9)
 		{
-		    MakePlayerDead(playerid);
-		    OnPlayerDeath(playerid, issuerid, weaponid);
+	    	SetPlayerHealthEx(playerid, 0);
+		    //MakePlayerDead(playerid);
+		    //OnPlayerDeath(playerid, issuerid, weaponid);
 		}
 		if(amount >= 100)
 		{
-			MakePlayerDead(playerid);
-			OnPlayerDeath(playerid, issuerid, weaponid);
+	    	SetPlayerHealthEx(playerid, 0);
+			//MakePlayerDead(playerid);
+			//OnPlayerDeath(playerid, issuerid, weaponid);
 		}
 		else if((health - amount) < 25.0)
 		{
@@ -14161,7 +14164,7 @@ public MySQL_Vehicle_Load()
         cache_get_value_name(i, "Type", szValue); DynamicVehicleInfo[id][dvType] = strval(szValue);
         cache_get_value_name(i, "Faction", szValue); DynamicVehicleInfo[id][dvFaction] = strval(szValue);
 		printf("[Vehicle] #%d: Model: %d", id, DynamicVehicleInfo[id][dvModel]);
-		
+
 		DynamicVehicleInfo[id][dvHandleId] = CreateVehicleEx(DynamicVehicleInfo[id][dvModel],DynamicVehicleInfo[id][dvPosition][0],DynamicVehicleInfo[id][dvPosition][1],DynamicVehicleInfo[id][dvPosition][2],DynamicVehicleInfo[id][dvFacingAngle],DynamicVehicleInfo[id][dvColor][0],DynamicVehicleInfo[id][dvColor][1],VEHICLE_RESPAWN);
 	}
     printf("[Vehicle]: A total of %d vehicles have been loaded into the script.", rows);
@@ -14192,14 +14195,14 @@ stock UpdateDynamicVehicle(id, modelid = -1, Float:PositionX = -1.0, Float:Posit
   		`PosY` = '%f',\
    		`PosZ` = '%f',\
     	`Angle` = '%f',", DynamicVehicleInfo[id][dvModel], DynamicVehicleInfo[id][dvPosition][0], DynamicVehicleInfo[id][dvPosition][1], DynamicVehicleInfo[id][dvPosition][2], DynamicVehicleInfo[id][dvFacingAngle]);
-    	
+
     format(szQuery, sizeof(szQuery), "%s `Color1` = '%d',\
     	`Color2` = '%d',\
    		`Type` = '%d',\
     	`Faction` = '%d'\
 		WHERE `Id` = '%d'", szQuery, DynamicVehicleInfo[id][dvColor][0], DynamicVehicleInfo[id][dvColor][1], DynamicVehicleInfo[id][dvType], DynamicVehicleInfo[id][dvFaction], id);
 	mysql_tqueryof(szQuery, THREAD_NO_RESULT, INVALID_PLAYER_ID, mConnectionHandle);
-	
+
 	DestroyVehicle(DynamicVehicleInfo[id][dvHandleId]);
 	DynamicVehicleInfo[id][dvHandleId] = CreateVehicleEx(DynamicVehicleInfo[id][dvModel],DynamicVehicleInfo[id][dvPosition][0],DynamicVehicleInfo[id][dvPosition][1],DynamicVehicleInfo[id][dvPosition][2],DynamicVehicleInfo[id][dvFacingAngle],DynamicVehicleInfo[id][dvColor][0],DynamicVehicleInfo[id][dvColor][1],VEHICLE_RESPAWN);
 }
@@ -14425,7 +14428,7 @@ CMD:park(playerid, params[])
     {
         if(GetPlayerVehicleID(playerid) == PlayerVehicleInfo[playerid][i][pvHandleId])
 		{
-			
+
 			GetVehicleHealth(PlayerVehicleInfo[playerid][i][pvHandleId], PlayerVehicleInfo[playerid][i][pvHealth]);
 			if(PlayerVehicleInfo[playerid][i][pvHealth] < 800) return SendClientMessageEx(playerid, COLOR_GREY, "Your vehicle cannot be parked because it is too damaged to park it.");
 		    GetVehiclePos(GetPlayerVehicleID(playerid), PlayerVehicleInfo[playerid][i][pvPosition][0], PlayerVehicleInfo[playerid][i][pvPosition][1], PlayerVehicleInfo[playerid][i][pvPosition][2]);
