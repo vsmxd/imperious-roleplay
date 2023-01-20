@@ -7704,8 +7704,8 @@ stock SafeTeleport(playerid, Float:x, Float:y, Float:z)
 		SetVehicleVirtualWorld(vehid, 0);
 	}
 	else SetPlayerPosEx(playerid,x,y,z);
-	SetPlayerInteriorEx(playerid,0);
-	SetPlayerVirtualWorldEx(playerid, 0);
+	//SetPlayerInteriorEx(playerid,0);
+	//SetPlayerVirtualWorldEx(playerid, 0);
 	SetCameraBehindPlayer(playerid);
 }
 
