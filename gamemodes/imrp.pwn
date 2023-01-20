@@ -21,6 +21,9 @@
 //------------------------------------------------------------------------------
 // SERVER CONFIGURATION
 //------------------------------------------------------------------------------
+// Comment out the below line when pushing to live server
+#define 		IS_LOCAL_HOST               true
+// Includes
 #include        "modules/config.pwn"
 //------------------------------------------------------------------------------
 // PREPROCESSOR DIRECTIVES

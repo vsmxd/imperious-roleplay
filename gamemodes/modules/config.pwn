@@ -9,9 +9,6 @@
 #define         SERVER_MAP					"Los Santos"
 #define         SERVER_SITE					"discord.gg/PZQCqUZjnC"
 
-// Comment out the below line when pushing to live server
-#define 		IS_LOCAL_HOST               true
-
 // MySQL configurations
 #if IS_LOCAL_HOST == true
 	#define 	MYSQL_HOST  				"127.0.0.1"
