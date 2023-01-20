@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 20, 2023 at 01:28 AM
+-- Generation Time: Jan 20, 2023 at 07:54 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 
 INSERT INTO `accounts` (`Id`, `Username`, `AdminName`, `Password`, `Banned`, `IpAddress`, `AdminLevel`, `Money`, `Paycheck`, `Skin`, `Faction`, `Leadership`, `Level`, `Experience`, `PlayingHours`, `Health`, `Armour`, `PosX`, `PosY`, `PosZ`, `PosAngle`, `Interior`, `VirtualWorld`, `Job`, `wSlot1`, `wSlot2`, `wSlot3`, `wSlot4`, `wSlot5`, `wSlot6`, `wSlot7`, `wSlot8`, `wSlot9`, `wSlot10`, `wSlot11`, `wSlot12`, `NewbMute`, `AdMute`, `ReportMute`, `OocMute`, `JailTime`, `Rank`, `Division`, `WantedLevel`, `Wounded`, `Tutorial`, `Age`, `Gender`, `bBalance`, `JackedCar`, `WalkieTalkie`, `Channel`, `PhoneNumber`, `VIP`, `Spraycan`, `DriverLicense`, `OocJail`, `GunLicense`, `Seeds`, `Weed`, `PlantX`, `PlantY`, `PlantZ`, `PlantInterior`, `PlantVw`, `PlantGrowth`, `GasCans`, `FishedAlready`, `ContractPrice`, `ContractReason`, `ContractBy`, `Hitman`, `Referer`, `ReceivedCar`, `Accent`, `CompletedHits`, `pv0_ModelId`, `pv0_PosX`, `pv0_PosY`, `pv0_PosZ`, `pv0_PosAngle`, `pv0_Locked`, `pv0_Health`, `pv0_PaintJob`, `pv0_Color1`, `pv0_Color2`, `pv0_Mods`, `pv0_Ticket`, `pv0_Impounded`, `pv1_ModelId`, `pv1_PosX`, `pv1_PosY`, `pv1_PosZ`, `pv1_PosAngle`, `pv1_Locked`, `pv1_Health`, `pv1_PaintJob`, `pv1_Color1`, `pv1_Color2`, `pv1_Mods`, `pv1_Ticket`, `pv1_Impounded`, `pv2_ModelId`, `pv2_PosX`, `pv2_PosY`, `pv2_PosZ`, `pv2_PosAngle`, `pv2_Locked`, `pv2_Health`, `pv2_PaintJob`, `pv2_Color1`, `pv2_Color2`, `pv2_Mods`, `pv2_Ticket`, `pv2_Impounded`, `Bombs`, `Reports`) VALUES
 (1, 'Thomas_Freeman', '', '74DFC2B27ACFA364DA55F93A5CAEE29CCAD3557247EDA238831B3E9BD931B01D77FE994E4F12B9D4CFA92A124461D2065197D8CF7F33FC88566DA2DB2A4D6EAE', 0, '192.168.1.2', 6, 9904599, 348, 23, 1, 1, 2, 0, 10, 100, 0, 1692.34, 1451.17, 10.7649, 180, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1, 0, 0, 1, 21, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 1, 'Norrin_Radd', 0, 0, 6, 406, -801.145, 1441.11, 13.7931, 165.582, 0, 1000, 0, 0, 0, 0, 0, 0, 457, -195.815, 2121.05, -13.9528, 258.736, 0, 1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(11, 'Ray_Vintage', '', '4FE4A24CBF6695CCC6440C4A9504DE730609FE60AFD244548B41BE6935FE1252EAB93BB0EDD1BFADC8C4B619D95F79F76FE5E263D4563BD69BA4F8B43A1E0CD9', 0, '127.0.0.1', 6, 100, 0, 82, 0, 0, 1, 0, 0, 95, 0, 2056.52, -1910, 13.5469, 267.665, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 18, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(11, 'Ray_Vintage', '', '4FE4A24CBF6695CCC6440C4A9504DE730609FE60AFD244548B41BE6935FE1252EAB93BB0EDD1BFADC8C4B619D95F79F76FE5E263D4563BD69BA4F8B43A1E0CD9', 0, '127.0.0.1', 6, 99, 0, 82, 0, 0, 1, 0, 0, 67, 0, 2113.73, -1747.16, 13.5625, 174.111, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 18, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0, '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `businesses` (
   `VirtualWorld` int NOT NULL,
   `Open` tinyint UNSIGNED NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `businesses`
@@ -203,9 +203,16 @@ CREATE TABLE IF NOT EXISTS `businesses` (
 INSERT INTO `businesses` (`Id`, `Name`, `Owner`, `BuyPrice`, `Earnings`, `PosX`, `PosY`, `PosZ`, `FacingAngle`, `Interior`, `VirtualWorld`, `Open`) VALUES
 (1, 'Barber Shop', 'None', 10000, 0, 2071.4, -1793.9, 13.5533, 271.309, 3, 62802, 1),
 (2, 'None', 'LS Pizza', 1, 0, 2105.14, -1806.53, 13.5547, 91.3793, 7, 78903, 1),
-(3, 'None', 'Government', 1, 0, 1832.72, -1842.52, 13.5781, 90.3412, 20, 31308, 1),
+(3, '24/7', 'None', 10000, 0, 1832.72, -1842.52, 13.5781, 90.3412, 20, 31308, 1),
 (4, 'None', 'Government', 15000, 0, 2244.55, -1664.62, 15.4766, 346.026, 21, 14052, 1),
-(5, 'Ammunation', 'Government', 1, 0, 2400.61, -1981.25, 13.5469, 359.98, 28, 68958, 1);
+(5, 'Ammunation', 'Government', 1, 0, 2400.61, -1981.25, 13.5469, 359.98, 28, 68958, 1),
+(6, 'LS Gym', 'None', 15000, 0, 2229.57, -1721.7, 13.5654, 133.488, 11, 3920, 1),
+(7, '24/7', 'None', 15000, 0, 1929.18, -1776.29, 13.5469, 270.729, 20, 77480, 1),
+(8, 'Club LS', 'None', 10000, 0, 1835.89, -1682.38, 13.3707, 88.5592, 19, 54934, 1),
+(9, 'Ten Bottles', 'None', 10000, 0, 2309.65, -1644.02, 14.827, 139.093, 30, 7669, 1),
+(10, 'Tattoo Parlor', 'None', 10000, 0, 2069.35, -1779.81, 13.5592, 272.092, 6, 6631, 1),
+(11, 'Cluckin\' Bell', 'None', 10000, 0, 2397.85, -1898.35, 13.5469, 358.451, 29, 84738, 1),
+(12, 'Vintage Hideout', 'Ray_Vintage', 1, 0, 2114.25, -1743.19, 13.5547, 177.534, 22, 35754, 1);
 
 -- --------------------------------------------------------
 
@@ -246,9 +253,9 @@ CREATE TABLE IF NOT EXISTS `factions` (
 --
 
 INSERT INTO `factions` (`Id`, `Name`, `Motd`, `Type`, `Rank1`, `Rank2`, `Rank3`, `Rank4`, `Rank5`, `Rank6`, `Rank7`, `Rank8`, `Rank9`, `Rank10`, `Div1`, `Div2`, `Div3`, `Div4`, `Div5`, `LockerX`, `LockerY`, `LockerZ`, `LockerMats`) VALUES
-(1, 'LSPD', '', 1, 'Nigger', '', '', '', '', '', '', '', '', 'Chief', 'PTL', 'DET', 'nothin', 'FTO', 'HC', 255.377, 76.9721, 1003.64, 5),
-(2, 'Robadan Republic', 'nate higgers', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 476.099, -14.9788, 1003.7, 10),
-(3, 'LSMD', '', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 1837.23, -1734.01, 602.677, 0),
+(1, 'LSPD', '', 1, 'Nigger', '', '', '', '', '', '', '', '', 'Chief', 'PTL', 'DET', 'nothin', 'FTO', 'HC', 263.322, 109.722, 1004.62, 5),
+(2, 'LS Government', 'nate higgers', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 363.043, 195.293, 1019.98, 10),
+(3, 'LSMD', '', 3, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 2382.39, 2651.86, 8001.15, 0),
 (4, 'None', '', 5, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 385.795, 2416.18, 16.4844, 0),
 (5, 'None', '', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0),
 (6, 'None', '', 2, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0, 0, 0, 0),
@@ -283,14 +290,18 @@ CREATE TABLE IF NOT EXISTS `gates` (
   `Speed` int UNSIGNED NOT NULL,
   `Faction` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `gates`
 --
 
 INSERT INTO `gates` (`Id`, `PosX`, `PosY`, `PosZ`, `PosRotationX`, `PosRotationY`, `PosRotationZ`, `DestinationX`, `DestinationY`, `DestinationZ`, `DestRotationX`, `DestRotationY`, `DestRotationZ`, `Model`, `Password`, `Speed`, `Faction`) VALUES
-(1, 1586.78, -1638.32, 14.5828, 0, 0, -2.39986, 1586.78, -1638.32, 7.70282, 0, 0, -2.39986, 19313, '', 3, 0);
+(1, 1586.78, -1638.32, 14.5828, 0, 0, -2.39986, 1586.78, -1638.32, 7.70282, 0, 0, -2.39986, 19313, '', 3, 0),
+(2, 239.698, 117.702, 1003.22, 0, 0, -0.100026, 239.698, 117.702, 1000.28, 0, 0, -0.100026, 19367, '', 5, 1),
+(3, 253.113, 109.144, 1003.22, 0, 0, 0, 253.113, 109.144, 998.569, 0, 0, 0, 19367, '', 5, 1),
+(4, 1544.68, -1630.96, 13.0528, 0, 90, 89.3, 1544.69, -1630.81, 13.0518, 0, 0.399957, 89.3, 968, '', 1, 1),
+(5, 371.257, 166.682, 1007.42, 0, 0, 0, 371.257, 166.682, 1007.44, 0.299999, 0, -94.9, 1569, '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -342,7 +353,13 @@ CREATE TABLE IF NOT EXISTS `logs` (
 --
 
 INSERT INTO `logs` (`Username`, `Date`, `Type`, `Issuer`, `Reason`) VALUES
-('Ray_Vintage', '2023/1/20 - 11:52:39', 'Jail', 'Ray_Vintage', 'test (1 minutes)');
+('Ray_Vintage', '2023/1/20 - 11:52:39', 'Jail', 'Ray_Vintage', 'test (1 minutes)'),
+('Ray_Vintage', '2023/1/20 - 17:12:14', 'Jail', 'Ray_Vintage', 'test (1 minutes)'),
+('Ray_Vintage', '2023/1/20 - 17:39:56', 'Jail', 'Ray_Vintage', 'test (1 minutes)'),
+('Ray_Vintage', '2023/1/20 - 17:42:42', 'Jail', 'Ray_Vintage', 'test (1 minutes)'),
+('Ray_Vintage', '2023/1/20 - 17:42:55', 'Jail', 'Ray_Vintage', 'lol (release)'),
+('Ray_Vintage', '2023/1/20 - 18:24:55', 'Jail', 'Ray_Vintage', 'test (1 minutes)'),
+('Ray_Vintage', '2023/1/20 - 18:25:10', 'Jail', 'Ray_Vintage', 'test (release)');
 
 -- --------------------------------------------------------
 
@@ -365,9 +382,9 @@ CREATE TABLE IF NOT EXISTS `vaults` (
 --
 
 INSERT INTO `vaults` (`Id`, `Money`, `PosX`, `PosY`, `PosZ`) VALUES
-(1, 21100, -2450.57, 2234.2, 4.84375),
-(2, 147800, -2405.61, 2350.7, 7.29655),
-(3, 36000, 0, 0, 0),
+(1, 20300, 226.618, 122.956, 1010.22),
+(2, 147800, 355.165, 150.856, 1025.79),
+(3, 36600, 2385.55, 2655.05, 8001.15),
 (4, 17800, 2551.02, -1288.78, 1044.12),
 (5, 0, 0, 0, 0),
 (6, 0, 0, 0, 0),
@@ -480,7 +497,7 @@ CREATE TABLE IF NOT EXISTS `waypoints` (
   `dLoadTime` tinyint UNSIGNED NOT NULL,
   `FactionRestriction` tinyint UNSIGNED NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `waypoints`
@@ -492,7 +509,12 @@ INSERT INTO `waypoints` (`Id`, `TextDisplay`, `Password`, `Locked`, `wPosX`, `wP
 (3, 'Crack Den', 'None', 0, 2166.3, -1671.64, 15.0739, 0, 0, 221.461, 0, 318.57, 1115.46, 1083.88, 66700, 5, 0, 0, 0),
 (4, 'LS DMV', 'None', 0, 2046.67, -1908.06, 13.5469, 0, 0, 269.858, 0, -2029.57, -118.776, 1035.17, 32855, 3, 357.786, 0, 0),
 (5, 'City Hall', 'None', 0, 1481.06, -1769.89, 18.7958, 0, 0, 358.922, 0, 389.304, 173.782, 1008.38, 432432, 3, 89.7891, 0, 0),
-(6, 'Bank of Los Santos', 'None', 0, 1498.51, -1582.37, 13.5469, 0, 0, 180.944, 0, 2305.79, -16.1977, 26.7496, 23123, 0, 270.244, 0, 0);
+(6, 'Bank of Los Santos', 'None', 0, 1498.51, -1582.37, 13.5469, 0, 0, 180.944, 0, 2305.79, -16.1977, 26.7496, 23123, 0, 270.244, 0, 0),
+(7, 'Idlewood Hospital', 'None', 0, 2034.19, -1403.74, 17.2771, 0, 0, 182.507, 0, 2383.1, 2665.25, 8001.15, 12345, 0, 179.299, 5, 0),
+(8, 'LSPD HQ', 'None', 0, 1554.4, -1675.63, 16.1953, 0, 0, 90.5544, 0, 246.466, 107.988, 1003.22, 777, 10, 0.3363, 0, 0),
+(9, 'LSPD Garage', 'None', 0, 215.667, 125.389, 1003.22, 777, 10, 180.627, 0, 1525.04, -1677.98, 5.89062, 0, 0, 270.676, 0, 0),
+(10, 'The Ring', 'None', 0, 771.78, -69.2237, 1000.58, 3920, 7, 263.034, 0, 768.683, -68.8251, 1001.57, 3920, 7, 91.1808, 0, 0),
+(11, 'Taxi Company HQ', 'None', 0, 1753.31, -1894.16, 13.5572, 0, 0, 269.876, 0, 1390.47, -1501.23, -51.7531, 0, 1, 182.792, 5, 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -554,7 +554,7 @@ new VehicleNames[212][] = {
 
 #define INDEX_MINEOBJECT                  (0)
 // SEMI DYNAMIC STUFF
-#define LOCATION_IMPOUND 			1598.180,-1611.086,13.442
+#define LOCATION_IMPOUND 			1601.478,-1608.568,13.629
 #define LOCATION_ARREST				1529.286,-1678.326,5.89
 #define LOCATION_DMV 				-2032.331,-117.191,1035.171
 #define LOCATION_DELIVERPT 			2013.878,-1417.351,16.992
@@ -591,13 +591,13 @@ new Float:DrugWarehouses[3][3] =
 new Float:JailPositions[6][3] =
 {
 	// IC
-	{227.309,109.348,999.015},
 	{223.503,110.130,999.015},
 	{219.508,110.099,999.0156},
+	{215.110,109.056,999.015},
 	// OOC
-	{215.110,109.056,999.015},
-	{215.110,109.056,999.015},
-	{215.110,109.056,999.015}
+	{-1170.812,2883.026,9993.131},
+	{-1160.0,2883.0,9993.0},
+	{-1152.0,2883.0,9993.0}
 };
 
 
@@ -7752,7 +7752,7 @@ CMD:goto(playerid, params[])
 		if(isnull(params))
 		{
 			SendClientMessageEx(playerid, COLOR_GREY, "USAGE: /goto [location]");
-			SendClientMessageEx(playerid, COLOR_GREY, "Locations: ls, lv, demorgan, hospital, impound, arrest, mailbox, dealership");
+			SendClientMessageEx(playerid, COLOR_GREY, "Locations: ls, lv, oocjail, hospital, impound, arrest, mailbox, dealership");
 			SendClientMessageEx(playerid, COLOR_GREY, "Locations: fish, taxi, trucker, miner, mechanic, pizza, smuggler");
 			return 1;
 		}
@@ -7761,8 +7761,8 @@ CMD:goto(playerid, params[])
 		    SafeTeleport(playerid, 1529.6,-1691.2,13.3);
 		else if(!strcmp(params,"lv",true))
 			SafeTeleport(playerid, 1692.3413, 1451.1672, 10.7649);
-		else if(!strcmp(params,"demorgan",true))
-		    SafeTeleport(playerid, 214.506, 1912.529, 17.640);
+		else if(!strcmp(params,"oocjail",true))
+		    SafeTeleport(playerid, -1158.640,2894.795,9993.131);
 		else if(!strcmp(params,"hospital",true))
 		    SafeTeleport(playerid, LOCATION_HOSPITAL );
 		else if(!strcmp(params,"impound",true))
@@ -10031,7 +10031,7 @@ stock GivePlayerDeath(playerid)
 		SetPlayerHealthEx(playerid, 100);
 		SetPlayerPosEx(playerid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
 		SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 0);
-		SetPlayerInteriorEx(playerid, 10);
+		SetPlayerInteriorEx(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 10);
 		SetPlayerVirtualWorldEx(playerid, 777);
 
 		PlayerTextDrawShow(playerid, JailTimerTD[playerid]);
@@ -10929,7 +10929,7 @@ public OnPlayerSpawn(playerid)
 			SetPlayerHealthEx(playerid, 100);
 			SetPlayerPosEx(playerid, JailPositions[jailPos][0], JailPositions[jailPos][1], JailPositions[jailPos][2]);
 			SetPlayerFacingAngle(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 0);
-			SetPlayerInteriorEx(playerid, 10);
+			SetPlayerInteriorEx(playerid, PlayerInfo[playerid][pOocJail] == 1 ? 0 : 10);
 			SetPlayerVirtualWorldEx(playerid, 777);
 
 			PlayerTextDrawShow(playerid, JailTimerTD[playerid]);
