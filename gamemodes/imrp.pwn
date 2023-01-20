@@ -5362,7 +5362,7 @@ CMD:editgate(playerid, params[])
 CMD:enter(playerid, params[])
 {
 	if(IsPlayerRestricted(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot do this at this time.");
-	else if(IsPlayerInAnyVehicle(playerid)) return 1;
+	//else if(IsPlayerInAnyVehicle(playerid)) return 1;
 
 	for (new w=1; w < MAX_WAYPOINTS; w++)
 	{
@@ -5375,11 +5375,10 @@ CMD:enter(playerid, params[])
 	                if((WaypointInfo[w][wFactionRestriction] != 0 && PlayerInfo[playerid][pFaction] == WaypointInfo[w][wFactionRestriction]) || WaypointInfo[w][wFactionRestriction] == 0)
 	                {
 	                    Streamer_UpdateEx(playerid, WaypointInfo[w][wDestPosition][0], WaypointInfo[w][wDestPosition][1], WaypointInfo[w][wDestPosition][2]);
-	                    SafeTeleport(playerid, WaypointInfo[w][wDestPosition][0], WaypointInfo[w][wDestPosition][1], WaypointInfo[w][wDestPosition][2]);
+	                    SafeTeleport(playerid, WaypointInfo[w][wDestPosition][0], WaypointInfo[w][wDestPosition][1], WaypointInfo[w][wDestPosition][2], WaypointInfo[w][wDestInterior], WaypointInfo[w][wDestVirtualWorld]);
 			            SetPlayerFacingAngle(playerid, WaypointInfo[w][wDestFacingAngle]);
-				        SetPlayerVirtualWorldEx(playerid, WaypointInfo[w][wDestVirtualWorld]);
-				        SetPlayerInteriorEx(playerid, WaypointInfo[w][wDestInterior]);
-					    SetPlayerPosEx(playerid, WaypointInfo[w][wDestPosition][0], WaypointInfo[w][wDestPosition][1], WaypointInfo[w][wDestPosition][2]);
+				        //SetPlayerVirtualWorldEx(playerid, WaypointInfo[w][wDestVirtualWorld]);
+				        //SetPlayerInteriorEx(playerid, WaypointInfo[w][wDestInterior]);
 			            if(WaypointInfo[w][wDestLoadingTime] > 0)
 			            {
 							SetPVarInt(playerid, "ActionRestriction", 1);
@@ -5450,7 +5449,7 @@ CMD:enter(playerid, params[])
 CMD:exit(playerid, params[])
 {
 	if(IsPlayerRestricted(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You cannot do this at this time.");
-	else if(IsPlayerInAnyVehicle(playerid)) return 1;
+	//else if(IsPlayerInAnyVehicle(playerid)) return 1;
 
 	for (new i=1; i < MAX_WAYPOINTS; i++)
 	{
@@ -5461,10 +5460,10 @@ CMD:exit(playerid, params[])
 				if((WaypointInfo[i][wFactionRestriction] != 0 && PlayerInfo[playerid][pFaction] == WaypointInfo[i][wFactionRestriction]) || WaypointInfo[i][wFactionRestriction] == 0)
 	 			{
 	 			    Streamer_UpdateEx(playerid, WaypointInfo[i][wPosition][0], WaypointInfo[i][wPosition][1], WaypointInfo[i][wPosition][2]);
-                    SafeTeleport(playerid, WaypointInfo[i][wPosition][0], WaypointInfo[i][wPosition][1], WaypointInfo[i][wPosition][2]);
+                    SafeTeleport(playerid, WaypointInfo[i][wPosition][0], WaypointInfo[i][wPosition][1], WaypointInfo[i][wPosition][2], WaypointInfo[i][wInterior], WaypointInfo[i][wVirtualWorld]);
 					SetPlayerFacingAngle(playerid, WaypointInfo[i][wFacingAngle]);
-			        SetPlayerVirtualWorldEx(playerid, WaypointInfo[i][wVirtualWorld]);
-			        SetPlayerInteriorEx(playerid, WaypointInfo[i][wInterior]);
+			        //SetPlayerVirtualWorldEx(playerid, WaypointInfo[i][wVirtualWorld]);
+			        //SetPlayerInteriorEx(playerid, WaypointInfo[i][wInterior]);
 		            if(WaypointInfo[i][wLoadingTime] > 0)
 		            {
 						TogglePlayerControllable(playerid, false);
@@ -6138,7 +6137,7 @@ public StartEngine(playerid, vehicleid)
 	if(echance != 0)
 	{
 	    new string[128];
-		format(string, sizeof(string), "* The vehicle engine was successfully started. (( %s)) ", GetPlayerNameEx(playerid));
+		format(string, sizeof(string), "* The vehicle engine was successfully started. (( %s )) ", GetPlayerNameEx(playerid));
 		ProxDetector(30.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 		GetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
 		VehicleInfo[vehicleid][vEngine] = 1;
@@ -7694,18 +7693,18 @@ CMD:revive(playerid,params[])
 
 
 
-stock SafeTeleport(playerid, Float:x, Float:y, Float:z)
+stock SafeTeleport(playerid, Float:x, Float:y, Float:z, interior = 0, virtualworld = 0)
 {
 	new vehid = GetPlayerVehicleID(playerid);
 	if(IsPlayerInAnyVehicle(playerid))
 	{
 		SetVehiclePos(vehid,x,y,z);
-		LinkVehicleToInterior(vehid, 0);
-		SetVehicleVirtualWorld(vehid, 0);
+		LinkVehicleToInterior(vehid, interior);
+		SetVehicleVirtualWorld(vehid, virtualworld);
 	}
 	else SetPlayerPosEx(playerid,x,y,z);
-	//SetPlayerInteriorEx(playerid,0);
-	//SetPlayerVirtualWorldEx(playerid, 0);
+	SetPlayerInteriorEx(playerid,interior);
+	SetPlayerVirtualWorldEx(playerid, virtualworld);
 	SetCameraBehindPlayer(playerid);
 }
 
@@ -7861,8 +7860,7 @@ CMD:gotoco(playerid,params[])
 		{
 			return SendClientMessageEx(playerid,COLOR_GREY,"Usage: /gotoco [xcoord] [ycoord] [zcoord] [interior]");
 		}
-        SafeTeleport(playerid,x,y,z);
-		SetPlayerInteriorEx(playerid, i);
+        SafeTeleport(playerid, x, y, z, i);
 	}
  	return 1;
 }
@@ -13532,7 +13530,11 @@ stock MakePlayerDead(playerid)
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
 
-	if(newkeys & KEY_JUMP && !(oldkeys & KEY_JUMP) && GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_CUFFED) ApplyAnimation(playerid, "GYMNASIUM", "gym_jog_falloff",4.1,0,1,1,0,0);
+	if(newkeys & KEY_JUMP && !(oldkeys & KEY_JUMP) && GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_CUFFED)
+	{
+		ApplyAnimation(playerid, "GYMNASIUM", "gym_jog_falloff",4.1,0,1,1,0,0);
+		return 1;
+	}
 	if(newkeys & KEY_FIRE)
 	{
 		if(GetPlayerWeapon(playerid) == WEAPON_SPRAYCAN && GetPVarInt(playerid, "SprayingVehicleID") > 0)
@@ -13596,15 +13598,27 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 	}
-	else if(newkeys & KEY_YES)
+
+	if(newkeys & KEY_YES)
 	{
 	    cmd_enter(playerid, "");
 	    cmd_exit(playerid, "");
+		return 1;
+	}
+
+	if(newkeys & KEY_CROUCH)
+	{
+		if(IsPlayerInAnyVehicle(playerid))
+		{
+			cmd_car(playerid, "engine");
+			return 1;
+		}
 	}
 
 	if(IsKeyJustDown(KEY_SPRINT, newkeys, oldkeys))
 	{
 		if(gPlayerUsingLoopingAnim[playerid]) StopLoopingAnim(playerid);
+		return 1;
     }
 	return 1;
 }
