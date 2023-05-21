@@ -557,30 +557,30 @@ new VehicleNames[212][] = {
 
 #define INDEX_MINEOBJECT                  (0)
 // SEMI DYNAMIC STUFF
-#define LOCATION_IMPOUND 			1601.478,-1608.568,13.629
-#define LOCATION_ARREST				1529.286,-1678.326,5.89
-#define LOCATION_DMV 				-2032.331,-117.191,1035.171
-#define LOCATION_DELIVERPT 			2013.878,-1417.351,16.992
-#define LOCATION_HOSPITAL    		2036,-1413.224, 17.00
+#define LOCATION_IMPOUND 			-229.2082,982.8469,19.5727
+#define LOCATION_ARREST				-215.3475,972.9323,19.3249
+#define LOCATION_DMV 				-2032.331,-117.191,1035.171 // interior
+#define LOCATION_DELIVERPT 			-329.2555,1063.0144,19.7422
+#define LOCATION_HOSPITAL    		-320.0641,1058.7308,19.7422
 
 
 #define LOCATION_MAILBOX 			2104.947,-1736.459,13.560
-#define LOCATION_WEAPONFACTORY 		2543.16, -1296.00, 1044.13
-#define LOCATION_DEALERSHIP         1748.668,-1860.566,13.578
+#define LOCATION_WEAPONFACTORY 		2543.16, -1296.00, 1044.13 // interior
+#define LOCATION_DEALERSHIP         -142.5047,1127.8767,19.7500
 
-#define LOCATION_FISH               383.331,-2084.878,7.835
-#define LOCATION_SELLFISH 			-27.767,-137.669,1003.546
-#define LOCATION_TAXIJOB 			1766.674,-1888.456,13.553
-#define LOCATION_TRUCKERJOB 		2183.902,-2252.951,14.770
-#define LOCATION_TRUCKDELIVERY 		2188.268,-2264.258,13.479
-#define LOCATION_MECHANICJOB 		1846.817,-1860.995,13.585
-#define LOCATION_PIZZAJOB 			377.187,-115.422,1001.492
-#define LOCATION_PIZZADELIVERY 		2110.976,-1773.879,13.392
-#define LOCATION_MINERJOB   	    2199.689,-1974.648,13.557
-#define LOCATION_MINESPOT	        -187.4391,2129.9346,-12.6628
-#define LOCATION_MINEPROCESSING		-212.2387,2121.3508,-13.6078
-#define LOCATION_SMUGGLERJOB 		1415.3113,-1300.7979,13.5447
-#define LOCATION_GETDRUGS 			1423.5861,-1319.3956,13.5547
+#define LOCATION_FISH               -420.6925,1163.7197,1.8730
+#define LOCATION_SELLFISH 			-369.0678,1168.8260,20.2719
+#define LOCATION_TAXIJOB 			-137.3828,1070.0358,19.7483
+#define LOCATION_TRUCKERJOB 		559.9937,1216.6375,11.7188
+#define LOCATION_TRUCKDELIVERY 		576.0657,1218.3240,11.7113
+#define LOCATION_MECHANICJOB 		-90.6934,1118.3612,20.7860
+#define LOCATION_PIZZAJOB 			175.2343,1173.3280,14.7578
+#define LOCATION_PIZZADELIVERY 		169.8163,1182.6014,14.7578
+#define LOCATION_MINERJOB   	    600.6476,871.7503,-42.9609
+#define LOCATION_MINESPOT	        -187.4391,2129.9346,-12.6628 // interior
+#define LOCATION_MINEPROCESSING		-212.2387,2121.3508,-13.6078 // interior
+#define LOCATION_SMUGGLERJOB 		300.8796,1143.7128,9.1375
+#define LOCATION_GETDRUGS 			288.0374,1138.9924,8.5912
 
 
 
@@ -833,8 +833,7 @@ new
 	Text:Login1,
 	Text:Login2,
 	Text:Login3,
-	Text:Login5,
-	Text:Login7
+	Text:Login4
 ;
 
 // Timers
@@ -897,9 +896,9 @@ new
 main()
 {
 	AntiDeAMX();
-	SendRconCommand("hostname "SERVER_NAME);
+	SendRconCommand("hostname "SERVER_HOSTNAME);
     SendRconCommand("rcon_password "SERVER_RCON);
-    SendRconCommand("gamemodetext "SERVER_VERSION);
+    SendRconCommand("gamemodetext "SERVER_GMTEXT);
 	SendRconCommand("mapname "SERVER_MAP);
 	SendRconCommand("weburl "SERVER_SITE);
 	SendRconCommand("password "SERVER_PASSWORD);
@@ -1094,25 +1093,16 @@ public OnGameModeInit()
 	TextDrawFont(Login3, 3);
 	TextDrawSetProportional(Login3, 1);
 
-	Login5 = TextDrawCreate(279.000091, 9.125836, SERVER_SITE);
-	TextDrawLetterSize(Login5, 0.449999, 1.600000);
-	TextDrawAlignment(Login5, 1);
-	TextDrawColor(Login5, -1);
-	TextDrawSetShadow(Login5, 0);
-	TextDrawSetOutline(Login5, 1);
-	TextDrawBackgroundColor(Login5, 51);
-	TextDrawFont(Login5, 2);
-	TextDrawSetProportional(Login5, 1);
 
-	Login7 = TextDrawCreate(245.666717, 370.014862, "Players Online: 0");
-	TextDrawLetterSize(Login7, 0.449999, 1.600000);
-	TextDrawAlignment(Login7, 1);
-	TextDrawColor(Login7, -1);
-	TextDrawSetShadow(Login7, 0);
-	TextDrawSetOutline(Login7, 1);
-	TextDrawBackgroundColor(Login7, 51);
-	TextDrawFont(Login7, 3);
-	TextDrawSetProportional(Login7, 1);
+	Login4 = TextDrawCreate(245.666717, 370.014862, "Players Online: 0");
+	TextDrawLetterSize(Login4, 0.449999, 1.600000);
+	TextDrawAlignment(Login4, 1);
+	TextDrawColor(Login4, -1);
+	TextDrawSetShadow(Login4, 0);
+	TextDrawSetOutline(Login4, 1);
+	TextDrawBackgroundColor(Login4, 51);
+	TextDrawFont(Login4, 3);
+	TextDrawSetProportional(Login4, 1);
 
 	for (new v=0; v < MAX_VEHICLES; v++)
 	    if(IsValidVehicle(v)) SetVehicleToRespawn(v);
@@ -1149,8 +1139,7 @@ public OnGameModeExit()
 	TextDrawDestroy(Login1);
 	TextDrawDestroy(Login2);
 	TextDrawDestroy(Login3);
-    TextDrawDestroy(Login5);
-    TextDrawDestroy(Login7);
+    TextDrawDestroy(Login4);
 
     Seifader_OnExit();
     MySQL_Exit();
@@ -1190,7 +1179,7 @@ public OnPlayerConnect(playerid)
         count++;
     }
     format(string, sizeof(string), "Players Online: %d", count);
-    TextDrawSetString(Login7, string);
+    TextDrawSetString(Login4, string);
 
     for(new i; ePlayerData:i < ePlayerData; i++)
 	{
@@ -1326,8 +1315,7 @@ stock ShowIntroTextDraws(playerid)
 	TextDrawShowForPlayer(playerid, Login1);
 	TextDrawShowForPlayer(playerid, Login2);
 	TextDrawShowForPlayer(playerid, Login3);
-	TextDrawShowForPlayer(playerid, Login5);
-	TextDrawShowForPlayer(playerid, Login7);
+	TextDrawShowForPlayer(playerid, Login4);
 }
 
 stock HideIntroTextDraws(playerid)
@@ -1336,8 +1324,7 @@ stock HideIntroTextDraws(playerid)
 	TextDrawHideForPlayer(playerid, Login1);
 	TextDrawHideForPlayer(playerid, Login2);
 	TextDrawHideForPlayer(playerid, Login3);
-	TextDrawHideForPlayer(playerid, Login5);
-	TextDrawHideForPlayer(playerid, Login7);
+	TextDrawHideForPlayer(playerid, Login4);
 }
 
 public OnQueryFinish(query[], resultid, extraid)
@@ -1692,7 +1679,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			    if(PlayerInfo[playerid][pBanned])
 			    {
-			        SendClientMessageEx(playerid, COLOR_YELLOW, "This account is currently banned from the server, please post a ban appeal on the forums ("SERVER_SITE")");
+			        SendClientMessageEx(playerid, COLOR_YELLOW, "This account is currently banned from the server, please post a ban appeal.");
 			        return KickEx(playerid);
 			    }
 			    SetPVarInt(playerid, "gPlayerLogged", 1);
@@ -5868,31 +5855,31 @@ CMD:fish(playerid, params[])
 		    case 1 .. 100:
 		    {
 			    PlayerInfo[playerid][pFish][f] = 1;
-			    format(string, sizeof(string), "You have caught a Trout, you can sell it to a 24/7 store using /sellfish for some money.");
+			    format(string, sizeof(string), "You have caught a Trout, you can sell it to a store using /sellfish for some money.");
 		    }
 
 		    case 101 .. 200:
 		    {
 			    PlayerInfo[playerid][pFish][f] = 3;
-			    format(string, sizeof(string), "You have caught a Shark, you can sell it to a 24/7 store using /sellfish for some money.");
+			    format(string, sizeof(string), "You have caught a Shark, you can sell it to a store using /sellfish for some money.");
 		    }
 
 		    case 201 .. 300:
 		    {
 			    PlayerInfo[playerid][pFish][f] = 4;
-			    format(string, sizeof(string), "You have caught a Squid, you can sell it to a 24/7 store using /sellfish for some money.");
+			    format(string, sizeof(string), "You have caught a Squid, you can sell it to a store using /sellfish for some money.");
 		    }
 
 		    case 301 .. 400:
 		    {
 			    PlayerInfo[playerid][pFish][f] = 5;
-			    format(string, sizeof(string), "You have caught a Salmon, you can sell it to a 24/7 store using /sellfish for some money.");
+			    format(string, sizeof(string), "You have caught a Salmon, you can sell it to a store using /sellfish for some money.");
 		    }
 
 		    case 401 .. 500:
 		    {
 			    PlayerInfo[playerid][pFish][f] = 6;
-			    format(string, sizeof(string), "You have caught a Manta Ray, you can sell it to a 24/7 store using /sellfish for some money.");
+			    format(string, sizeof(string), "You have caught a Manta Ray, you can sell it to a store using /sellfish for some money.");
 		    }
 
 		    default:
@@ -10098,8 +10085,8 @@ stock SendToHospital(playerid)
 	SendClientMessageEx(playerid, COLOR_WHITE, "You gave up hope and fell unconscious, you were immediately sent to the hospital.");
 	SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Please wait 15 seconds to complete the recovery process and get out of the hospital.");
 	SetPlayerHealthEx(playerid, 100);
-	SetPlayerPosEx(playerid, 2036, -1413.224, 12.00);
-	SetPlayerCameraPos(playerid, 1989.10,-1460.64,36.47);
+	SetPlayerPosEx(playerid, -304.0382,1073.0586,2500.0680);
+	SetPlayerCameraPos(playerid, -304.0382,1073.0586,25.0680);
 	SetPlayerCameraLookAt(playerid, LOCATION_HOSPITAL);
 	SetPlayerFacingAngle(playerid, 133.0);
 	SetPlayerInteriorEx(playerid, 0);
@@ -11055,7 +11042,7 @@ public HospitalTimer(playerid)
  	SetPlayerHealthEx(playerid, 100);
  	SetPlayerArmourEx(playerid, 0);
 	SetPlayerPosEx(playerid, LOCATION_HOSPITAL);
-	SetPlayerFacingAngle(playerid, 133.0);
+	SetPlayerFacingAngle(playerid, 310.0);
 	SetCameraBehindPlayer(playerid);
 	SendClientMessageEx(playerid, COLOR_LIGHTRED, "HOSPITAL: Your medical bill comes to $500, have a nice day.");
 	GivePlayerCash(playerid, -500);

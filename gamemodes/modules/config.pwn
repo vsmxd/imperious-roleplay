@@ -1,13 +1,19 @@
 //------------------------------------------------------------------------------
 // SERVER CONFIGURATION
 //------------------------------------------------------------------------------
-#define         SERVER_NAME					"          Los Santos Roleplay - Reborn!"
+// For in-game use
+#define         SERVER_NAME					"Fort Carson Roleplay"
+#define         SERVER_VERSION				"FC:RP v23.05.23"
+#define         SERVER_SITE					"www.google.com"
+
+// For server.cfg
+#define         SERVER_HOSTNAME				"          Fort Carson Roleplay - Medium RP!"
+#define         SERVER_GMTEXT				"Roleplay | English | Medium RP"
+#define         SERVER_WEBURL				"https://discord.gg/MxBdj9GFze"
 #define         SERVER_RCON					"tastycock"
 #define         SERVER_PASSWORD				"0"
 #define         SERVER_LANGUAGE				"English"
-#define         SERVER_VERSION				"LSRP | Roleplay/English/RP"
-#define         SERVER_MAP					"Los Santos"
-#define         SERVER_SITE					"discord.gg/PZQCqUZjnC"
+#define         SERVER_MAP					"Fort Carson"
 
 // MySQL configurations
 #if IS_LOCAL_HOST == true
