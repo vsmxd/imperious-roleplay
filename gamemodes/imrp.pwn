@@ -900,7 +900,7 @@ main()
     SendRconCommand("rcon_password "SERVER_RCON);
     SendRconCommand("gamemodetext "SERVER_GMTEXT);
 	SendRconCommand("mapname "SERVER_MAP);
-	SendRconCommand("weburl "SERVER_SITE);
+	SendRconCommand("weburl "SERVER_WEBURL);
 	SendRconCommand("password "SERVER_PASSWORD);
 	SendRconCommand("language "SERVER_LANGUAGE);
 	printf(""SERVER_NAME" ("SERVER_VERSION"), has been loaded successfully.");

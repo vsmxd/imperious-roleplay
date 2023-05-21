@@ -7,9 +7,9 @@
 #define         SERVER_SITE					"www.google.com"
 
 // For server.cfg
-#define         SERVER_HOSTNAME				"          Fort Carson Roleplay - Medium RP!"
-#define         SERVER_GMTEXT				"Roleplay | English | Medium RP"
-#define         SERVER_WEBURL				"https://discord.gg/MxBdj9GFze"
+#define         SERVER_HOSTNAME				".:![~]        Fort Carson Roleplay        [~]!:."
+#define         SERVER_GMTEXT				"Roleplay | Medium RP | English"
+#define         SERVER_WEBURL				"www.discord.gg/MxBdj9GFze"
 #define         SERVER_RCON					"tastycock"
 #define         SERVER_PASSWORD				"0"
 #define         SERVER_LANGUAGE				"English"
