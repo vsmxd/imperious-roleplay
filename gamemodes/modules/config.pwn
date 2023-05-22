@@ -25,5 +25,5 @@
 	#define 	MYSQL_HOST  				"127.0.0.1"
 	#define 	MYSQL_USERNAME  			"anothervishn"
 	#define 	MYSQL_PASSWORD  			"xtJwlOLD"
-	#define 	MYSQL_DATABASE  			"zanothervishn0"
+	#define 	MYSQL_DATABASE  			"zanothervishn1"
 #endif

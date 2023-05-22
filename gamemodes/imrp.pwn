@@ -21,8 +21,8 @@
 //------------------------------------------------------------------------------
 // SERVER CONFIGURATION
 //------------------------------------------------------------------------------
-// Comment out the below line when pushing to live server
-#define 		IS_LOCAL_HOST               true
+// Set the below line to false when pushing to live server
+#define 		IS_LOCAL_HOST               false
 // Includes
 #include        "modules/config.pwn"
 //------------------------------------------------------------------------------
