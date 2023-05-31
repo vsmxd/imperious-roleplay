@@ -347,9 +347,27 @@ enum ePlayerVehicleData
 }
 new PlayerVehicleInfo[MAX_PLAYERS][MAX_PLAYEROWNED_VEHICLES][ePlayerVehicleData];
 
+enum eDynamicVehicleData
+{
+   	dvHandleId,
+	dvModel,
+	Float:dvPosition[3],
+	Float:dvFacingAngle,
+	dvColor[2],
+	dvType,
+	dvFaction,
+	// new -- ADD DYNAMIC PVEHICLES
+	dvHealth,
+	dvLocked,
+	dvPaintJob,
+	dvImpounded,
+	dvTicketPrice,
+	dvModifications[MAX_VEHICLE_MODS]
+}
+new DynamicVehicleInfo[MAX_DYNAMIC_VEHICLES+1][eDynamicVehicleData];
+
 enum eVehicleData
 {
-	vStarted,
 	vTotalled,
 	vEngine,
 	vLights,
@@ -364,6 +382,8 @@ enum eVehicleData
 	vDrugs
 }
 new VehicleInfo[MAX_VEHICLES][eVehicleData];
+
+new buyable = mS_INVALID_LISTID;
 
 enum eWaypointData
 {
@@ -469,20 +489,6 @@ enum eVaultData
 }
 new VaultInfo[MAX_FACTIONS+1][eVaultData];
 
-enum eDynamicVehicleData
-{
-   	dvHandleId,
-	dvModel,
-	Float:dvPosition[3],
-	Float:dvFacingAngle,
-	dvColor[2],
-	dvType,
-	dvFaction
-}
-new DynamicVehicleInfo[MAX_DYNAMIC_VEHICLES+1][eDynamicVehicleData];
-
-
-new buyable = mS_INVALID_LISTID;
 
 /*
 new stock airbreakIndexes[] =
@@ -945,7 +951,6 @@ public OnGameModeInit()
 	CreateDynamic3DTextLabel("An Ordinary Mailbox\nType /contract here to send a mail to an unknown address", COLOR_YELLOW, LOCATION_MAILBOX, 10.0);
 	CreateDynamic3DTextLabel("Department of Motor Vehicles\nType /buylicense to buy a license\nType /dmvmenu to manage your vehicles and their legal status", COLOR_YELLOW, LOCATION_DMV, 8.0);
 	CreateDynamic3DTextLabel("Sell Fish\nType /sellfish to sell all the fish in your inventory", COLOR_YELLOW, LOCATION_SELLFISH, 15.0);
-	CreateDynamic3DTextLabel("Weapon Factory\nType /getgun to produce a gun", COLOR_YELLOW, LOCATION_WEAPONFACTORY, 8.0);
 
 	CreateDynamic3DTextLabel("Vehicle Dealership\nType /buyvehicles display the available cars", COLOR_YELLOW, LOCATION_DEALERSHIP, 15.0);
 	CreateDynamicPickup(1239, 1, LOCATION_DEALERSHIP);
@@ -996,13 +1001,13 @@ public OnGameModeInit()
 
 
 	// Interior Labels
-	CreateDynamic3DTextLabel("City Hall\nType /hallmenu to organize your citizenship", COLOR_YELLOW, 362.305, 173.687, 1008.382, 8.0);
-	CreateDynamic3DTextLabel("Bank\nType /bank to view your bank account", COLOR_YELLOW, 2310.30, -8.22, 26.74, 8.0);
-	CreateDynamic3DTextLabel("Buy Clothes\nType /buy to purchase some new clothes", COLOR_YELLOW, 207.694, -102.273, 1005.257, 8.0);
-	CreateDynamic3DTextLabel("Buy Guns\nType /buy to purchase a gun (weapon license required)", COLOR_YELLOW, 312.224, -165.032, 999.601, 8.0);
-	CreateDynamic3DTextLabel("Weapon Factory\nType /getgun to produce a gun", COLOR_YELLOW, LOCATION_WEAPONFACTORY, 8.0);
-	CreateDynamic3DTextLabel("Mine Spot\nType /mine to start mining", COLOR_LIGHTRED, LOCATION_MINESPOT, 10.0);
-	CreateDynamic3DTextLabel("Mine Processing\nDeliver the raw ores here to process it", COLOR_YELLOW, LOCATION_MINEPROCESSING, 8.0);
+	CreateDynamic3DTextLabel("City Hall\nType /hallmenu to organize your citizenship", COLOR_YELLOW, 362.305, 173.687, 1008.382, 15.0);
+	CreateDynamic3DTextLabel("Bank\nType /bank to view your bank account", COLOR_YELLOW, 2310.30, -8.22, 26.74, 15.0);
+	CreateDynamic3DTextLabel("Buy Clothes\nType /buy to purchase some new clothes", COLOR_YELLOW, 207.694, -102.273, 1005.257, 15.0);
+	CreateDynamic3DTextLabel("Buy Guns\nType /buy to purchase a gun (weapon license required)", COLOR_YELLOW, 312.224, -165.032, 999.601, 15.0);
+	CreateDynamic3DTextLabel("Weapon Factory\nType /getgun to produce a gun", COLOR_YELLOW, LOCATION_WEAPONFACTORY, 15.0);
+	CreateDynamic3DTextLabel("Mine Spot\nType /mine to start mining", COLOR_LIGHTRED, LOCATION_MINESPOT, 15.0);
+	CreateDynamic3DTextLabel("Mine Processing\nDeliver the raw ores here to process it", COLOR_YELLOW, LOCATION_MINEPROCESSING, 15.0);
 
 /*
 	LoadingObjectTextDraw = TextDrawCreate(326.000000, 131.000000, "Loading...");
@@ -3611,7 +3616,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    case 2:
 			    {
 			        VehicleEditOption[playerid] = 3;
-    				format(string, sizeof(string), "{FFFFFF}You are currently editing the faction of Vehicle %d.\nSelect an ID from ./factions. Use '0' for a public set.\nCurrent value: %d", VehicleEdit[playerid], DynamicVehicleInfo[VehicleEdit[playerid]][dvFaction]);
+    				format(string, sizeof(string), "{FFFFFF}You are currently editing the faction of Vehicle %d.\nPlease enter a valid faction ID (/factions). Use '0' to remove faction restriction.\nCurrent value: %d", VehicleEdit[playerid], DynamicVehicleInfo[VehicleEdit[playerid]][dvFaction]);
 			    	ShowPlayerDialogEx(playerid, DIALOG_VEHICLE_ADMIN_EDIT, DIALOG_STYLE_INPUT, "{FFFFFF}Vehicle Editor - Faction", string, "Submit", "Cancel");
 			    }
 
@@ -4469,14 +4474,16 @@ CMD:denyname(playerid, params[])
 
 stock SetDefaultRegisterStatistics(playerid)
 {
-  	PlayerInfo[playerid][pPositionX] = 1743.08;
-	PlayerInfo[playerid][pPositionY] = -1860.55;
-	PlayerInfo[playerid][pPositionZ] = 13.58;
-	PlayerInfo[playerid][pFacingAngle] = 0;
+
+	// Default Spawn Location
+  	PlayerInfo[playerid][pPositionX] = 90.9897;
+	PlayerInfo[playerid][pPositionY] = 1174.1541;
+	PlayerInfo[playerid][pPositionZ] = 18.6641;
+	PlayerInfo[playerid][pFacingAngle] = 90;
 
 	// Customize default player statistics below:
 	PlayerInfo[playerid][pHealth] = 100.0; PlayerInfo[playerid][pArmour] = 0.0;
-	PlayerInfo[playerid][pMoney] = 100; PlayerInfo[playerid][pBankBalance] = 500; PlayerInfo[playerid][pLevel] = 1;
+	PlayerInfo[playerid][pMoney] = 500; PlayerInfo[playerid][pBankBalance] = 1000; PlayerInfo[playerid][pLevel] = 1;
 	PlayerInfo[playerid][pTogNewbie] = 1; PlayerInfo[playerid][pTutorial] = 1;
 
 	SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
@@ -5983,18 +5990,17 @@ CMD:setradio(playerid, params[]) return cmd_car(playerid, "radio");
 CMD:car(playerid, params[])
 {
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if(!IsRunnableEngine(vehicleid)) return SendClientMessageEx(playerid, COLOR_GREY, "There is no engine on a bicycle Einstein.");
+	if(!IsRunnableEngine(vehicleid)) return SendClientMessageEx(playerid, COLOR_GREY, "There is no engine on this vehicle Einstein.");
 	if(isnull(params)) return SendClientMessageEx(playerid, COLOR_GREY, "Usage: /car [engine, lights, refuel, hood, trunk, status, radio]");
     if(!IsPlayerInAnyVehicle(playerid) || GetPlayerVehicleSeat(playerid) != 0) return SendClientMessageEx(playerid, COLOR_GREY, "You are not inside a vehicle.");
-	//if((WhoRentsVehicle(vehicleid) == INVALID_PLAYER_ID && IsARentableVehicle(vehicleid))) return SendClientMessageEx(playerid, COLOR_GREY, "You don't rent this vehicle.");
-	//if(IsAPizzaBike(vehicleid) || IsADmvCar(vehicleid) || IsATruckerVehicle(vehicleid)) return 1;
-
 
 	if(!strcmp(params, "engine"))
 	{
-	    if(VehicleInfo[vehicleid][vFuel] < FUEL_COST) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Engine Failure:{FFFFFF} You cannot start the engine because the fuel tank is empty.");
-    	else if(VehicleInfo[vehicleid][vTotalled]) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "Engine Failure:{FFFFFF} You cannot start the engine because it is damaged.");
-	    else if(GetPVarInt(playerid, "EngineStarting") == 1) return 1;
+		//if(IsAPizzaBike(vehicleid) || IsADmvCar(vehicleid) || IsATruckerVehicle(vehicleid)) return 1;
+	    if(VehicleInfo[vehicleid][vFuel] < FUEL_COST) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "VEHICLE:{FFFFFF} You cannot start the engine because the fuel tank is empty.");
+    	if(VehicleInfo[vehicleid][vTotalled]) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "VEHICLE:{FFFFFF} You cannot start the engine because it is damaged.");
+		if(GetPVarInt(playerid, "EngineStarting") == 1) return SendClientMessageEx(playerid, COLOR_LIGHTRED, "VEHICLE:{FFFFFF} Your engine is already starting.");
+		if(IsARentableVehicle(vehicleid) && GetPVarInt(playerid, "RentingCar") != vehicleid) return SendClientMessageEx(playerid, COLOR_GREY, "You don't rent this vehicle.");
 	    new string[128];
 		if(VehicleInfo[vehicleid][vEngine] == 0)
 	    {
@@ -8827,9 +8833,9 @@ stock IsAtDealership(playerid)
 }
 CMD:getgun(playerid, params[])
 {
-	if(IsAnIllegal(playerid) || PlayerInfo[playerid][pHitman] != 0)
+	if(IsAnIllegal(playerid))
 	{
-		if(PlayerInfo[playerid][pRank] < 4 && PlayerInfo[playerid][pHitman] == 0) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least rank 4 to obtain guns.");
+		if(PlayerInfo[playerid][pRank] < 4) return SendClientMessageEx(playerid, COLOR_GREY, "You must be at least rank 4 to obtain guns.");
 	    if(IsPlayerInRangeOfPoint(playerid, 6.0, LOCATION_WEAPONFACTORY))
 	    {
 	        new weaponname[24];
@@ -10085,7 +10091,7 @@ stock SendToHospital(playerid)
 	SendClientMessageEx(playerid, COLOR_WHITE, "You gave up hope and fell unconscious, you were immediately sent to the hospital.");
 	SendClientMessageEx(playerid, COLOR_WHITE, "HINT: Please wait 15 seconds to complete the recovery process and get out of the hospital.");
 	SetPlayerHealthEx(playerid, 100);
-	SetPlayerPosEx(playerid, -304.0382,1073.0586,2500.0680);
+	SetPlayerPosEx(playerid, -304.0382,1073.0586,0);
 	SetPlayerCameraPos(playerid, -304.0382,1073.0586,25.0680);
 	SetPlayerCameraLookAt(playerid, LOCATION_HOSPITAL);
 	SetPlayerFacingAngle(playerid, 133.0);
@@ -10724,7 +10730,7 @@ CMD:hitmanhelp(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_WHITE, "-------------------------------------------------------------------");
 		SendClientMessageEx(playerid, COLOR_GREY, "International Contract Agency - Hitman Commands");
 		SendClientMessageEx(playerid, COLOR_WHITE, "To access /contracts and /givemehit, you need to be at the mailbox near City Hall.");
-		SendClientMessageEx(playerid, COLOR_WHITE, "HITMAN: /er, /contracts, /getgun, /givemehit, /ranks, /pb, /pcb, /pub");
+		SendClientMessageEx(playerid, COLOR_WHITE, "HITMAN: /er, /contracts, /givemehit, /ranks, /pb, /pcb, /pub");
 		if(PlayerInfo[playerid][pHitman] >= 5) SendClientMessageEx(playerid, COLOR_WHITE, "LEADERSHIP: /makehitman");
 		SendClientMessageEx(playerid, COLOR_WHITE, "-------------------------------------------------------------------");
 	}
@@ -11097,7 +11103,6 @@ public OnVehicleDeath(vehicleid, killerid)
 	}
 	VehicleInfo[vehicleid][vEngine] = 0;
 	VehicleInfo[vehicleid][vTotalled] = 0;
-	VehicleInfo[vehicleid][vStarted] = 0;
 	return 1;
 }
 
@@ -11218,17 +11223,7 @@ public OnPlayerText(playerid, text[])
 }
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
-{/*
-	if(VehicleInfo[vehicleid][vStarted] == 0)
-	{
-		VehicleInfo[vehicleid][vStarted] = 1;
-		VehicleInfo[vehicleid][vEngine] = 0;
-		VehicleInfo[vehicleid][vLights] = 0;
-		VehicleInfo[vehicleid][vTotalled] = 0;
-		VehicleInfo[vehicleid][vFuel] = 100;
-		VehicleInfo[vehicleid][vLocked] = 0;
-		SetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
-	}*/
+{
 	if(PlayerInfo[playerid][pWounded] != PLAYER_ALIVE)
 	{
 	    ClearAnimations(playerid);
@@ -11387,7 +11382,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			    new string[128];
 			    format(string, sizeof(string), "RENT:{FFFFFF} You manage to find some papers saying that this car is currently being rented by %s.", GetPlayerNameEx(WhoRentsVehicle(vehicleid)));
 	     		SendClientMessageEx(playerid, COLOR_ORANGE, string);
-			 	VehicleInfo[vehicleid][vEngine] = 1;
+			 	//VehicleInfo[vehicleid][vEngine] = 1;
 			}
 			else
 			{
@@ -11614,7 +11609,6 @@ CMD:taketest(playerid, params[])
 	    if(HasActiveCheckpoint(playerid)) return SendClientMessageEx(playerid, COLOR_GREY, "You already have an existing checkpoint, type /killcheckpoint to delete it.");
 	    else if(GetPVarInt(playerid, "TakingDMVTest") == 0)
 	    {
-	 		VehicleInfo[vehicleid][vStarted] = 1;
 	 		VehicleInfo[vehicleid][vEngine] = 1;
 	   		VehicleInfo[vehicleid][vFuel] = 100;
 			SetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
@@ -11648,7 +11642,6 @@ CMD:startpizza(playerid, params[])
 				new rand = random(GetAvailableHouse()-1)+1, vehicleid = GetPlayerVehicleID(playerid);
 				SetPlayerCheckpoint(playerid, HouseInfo[rand][hPosition][0], HouseInfo[rand][hPosition][1], HouseInfo[rand][hPosition][2], 5.0);
 
-			    VehicleInfo[vehicleid][vStarted] = 1;
 			    VehicleInfo[vehicleid][vFuel] = 100;
 			    VehicleInfo[vehicleid][vEngine] = 1;
 				SetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
@@ -11690,7 +11683,6 @@ CMD:startroute(playerid, params[])
 				SetPlayerCheckpoint(playerid, BusinessInfo[rand][bPosition][0], BusinessInfo[rand][bPosition][1], BusinessInfo[rand][bPosition][2], 5.0);
 
 				GetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
-			    VehicleInfo[vehicleid][vStarted] = 1;
 			    VehicleInfo[vehicleid][vFuel] = 100;
 			    VehicleInfo[vehicleid][vEngine] = 1;
 				SetVehicleParamsEx(vehicleid, VehicleInfo[vehicleid][vEngine], VehicleInfo[vehicleid][vLights], VehicleInfo[vehicleid][vAlarm], VehicleInfo[vehicleid][vDoors], VehicleInfo[vehicleid][vBonnet], VehicleInfo[vehicleid][vBoot], VehicleInfo[vehicleid][vObjective]);
@@ -15783,7 +15775,7 @@ stock GetFactionType(i)
 	    case 2: { format(tmpString, sizeof(tmpString), "Governing Agency"); }
 	    case 3: { format(tmpString, sizeof(tmpString), "Medical Agency"); }
 	    case 4: { format(tmpString, sizeof(tmpString), "News Agency"); }
-	    case 5: { format(tmpString, sizeof(tmpString), "Illegal Agency"); }
+	    case 5: { format(tmpString, sizeof(tmpString), "Illegal Faction"); }
 		default: { format(tmpString, sizeof(tmpString), "Undefined Type"); }
 	}
 	return tmpString;
